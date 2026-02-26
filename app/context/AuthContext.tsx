@@ -8,12 +8,8 @@ import React, {
   useState,
 } from "react";
 import type { AuthUser } from "../types/auth";
+import { decodeJwtPayload, isJwtExpired } from "../lib/utils/auth/jwt";
 import { clearToken, getToken, setToken } from "../lib/utils/auth/token";
-import {
-  getStoredUser,
-  setStoredUser,
-  clearStoredUser,
-} from "../lib/utils/auth/user";
 import { loginService, registerService } from "../services/auth.service";
 
 type AuthStatus = "loading" | "authenticated" | "guest";
@@ -39,19 +35,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setTokenState] = useState<string | null>(null);
   const [status, setStatus] = useState<AuthStatus>("loading");
 
-  // Au refresh: on recharge juste le token. (On n'a pas de /me dans ton backend)
   useEffect(() => {
     const t = getToken();
-    const u = getStoredUser();
 
-    if (t) {
+    if (!t) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setTokenState(t);
-      setUser(u); // peut être null si jamais pas encore stocké
-      setStatus("authenticated");
-    } else {
       setStatus("guest");
+      return;
     }
+
+    const payload = decodeJwtPayload(t);
+
+    if (!payload || isJwtExpired(payload)) {
+      clearToken();
+      setTokenState(null);
+      setUser(null);
+      setStatus("guest");
+      return;
+    }
+
+    setTokenState(t);
+    setUser({
+      id: payload.id,
+      name: payload.name,
+      email: payload.email ?? "",
+      picture: null,
+      role: payload.role,
+    });
+    setStatus("authenticated");
   }, []);
 
   async function login(email: string, password: string) {
@@ -60,7 +71,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setToken(token);
     setTokenState(token);
     setUser(user);
-    setStoredUser(user);
     setStatus("authenticated");
   }
 
@@ -75,13 +85,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setToken(token);
     setTokenState(token);
     setUser(user);
-    setStoredUser(user);
+
     setStatus("authenticated");
   }
 
   function logout() {
     clearToken();
-    clearStoredUser();
     setTokenState(null);
     setUser(null);
     setStatus("guest");
