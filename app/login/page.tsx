@@ -11,11 +11,11 @@ export default function Login() {
           ce qui rend vos séjours uniques.
         </p>
         <form>
-          <div className="form-input">
+          <div className="login-form-input">
             <label htmlFor="email">Adresse e-mail</label>
             <input id="email" type="email" />
           </div>
-          <div className="form-input">
+          <div className="login-form-input">
             <label htmlFor="password">Mot de passe</label>
             <input id="password" type="password" />
           </div>
@@ -23,7 +23,7 @@ export default function Login() {
         </form>
         <div className="login-link">
           <Link href="/forgot-password">Mot de passe oublié</Link>
-          <Link href="/signup">Pas encore de compte ? Inscrivez-vous</Link>
+          <Link href="/register">Pas encore de compte ? Inscrivez-vous</Link>
         </div>
       </div>
     </div>
