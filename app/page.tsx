@@ -1,4 +1,5 @@
 import Image from "next/image";
+import PropertyGrid from "./PropertyGrid";
 import "./page.scss";
 
 export default function Home() {
@@ -13,10 +14,13 @@ export default function Home() {
         <Image
           src="/images/homepage-header-image.jpg"
           alt="Image d'accueil de Kasa"
+          className="homepage-img"
           width={1000}
           height={458}
         />
       </div>
+      {/* Composant qui affiche la grille de propriétés */}
+      <PropertyGrid />
     </div>
   );
 }
