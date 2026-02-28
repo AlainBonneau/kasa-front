@@ -1,24 +1,24 @@
 .home-page-container {
-    width: 80%;
-    margin: 0 auto;
+  width: 80%;
+  margin: 0 auto;
 
-    h1 {
-        color: var(--main-red);
-        font-size: 2rem;
-        font-weight: 700;
-        line-height: 143%;
-        text-align: center;
-    }
+  h1 {
+    color: var(--main-red);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 143%;
+    text-align: center;
+  }
 
-    p {
-        line-height: 143%;
-        text-align: center;
-    }
+  p {
+    line-height: 143%;
+    text-align: center;
+  }
 
-    img {
-        margin-top: 40px;
-        border-radius: 20px;
-        object-fit: cover;
-        width: 100%;
-    }
+  img {
+    margin-top: 40px;
+    border-radius: 20px;
+    object-fit: cover;
+    width: 100%;
+  }
 }
