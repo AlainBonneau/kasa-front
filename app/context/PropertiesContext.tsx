@@ -7,7 +7,10 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { listProperties } from "../services/properties.service";
+import {
+  listProperties,
+  getPropertyById,
+} from "../services/properties.service";
 import type { Property } from "../types/property";
 
 type PropertiesContextValue = {
@@ -15,6 +18,7 @@ type PropertiesContextValue = {
   loading: boolean;
   error: string | null;
   refresh: () => Promise<void>;
+  getPropertyById: (id: string) => Promise<Property | null>;
 };
 
 const PropertiesContext = createContext<PropertiesContextValue | null>(null);
@@ -49,7 +53,7 @@ export function PropertiesProvider({
   }, []);
 
   const value = useMemo(
-    () => ({ properties, loading, error, refresh }),
+    () => ({ properties, loading, error, refresh, getPropertyById }),
     [properties, loading, error],
   );
 

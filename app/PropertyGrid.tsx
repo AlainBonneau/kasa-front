@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { listProperties } from "./services/properties.service";
+import Link from "next/link";
 import Image from "next/image";
 import type { Property } from "./types/property";
 import "./PropertyGrid.scss";
@@ -25,24 +26,30 @@ export default function PropertyGrid() {
   return (
     <article className="property-grid">
       {properties.map((property) => (
-        <section key={property.id} className="property-card">
-          <Image
-            src={property.cover}
-            alt={property.title}
-            height={376}
-            width={300}
-            className="property-image"
-          />
-          <div className="property-card-description">
-            <div className="card-description-content">
-              <h2>{property.title}</h2>
-              <p>{property.location}</p>
+        <Link
+          key={property.id}
+          href={`/properties/${property.id}`}
+          className="property-link"
+        >
+          <section key={property.id} className="property-card">
+            <Image
+              src={property.cover}
+              alt={property.title}
+              height={376}
+              width={300}
+              className="property-image"
+            />
+            <div className="property-card-description">
+              <div className="card-description-content">
+                <h2>{property.title}</h2>
+                <p>{property.location}</p>
+              </div>
+              <p className="property-card-price">
+                <span>{property.price_per_night}€</span> par nuit
+              </p>
             </div>
-            <p className="property-card-price">
-              <span>{property.price_per_night}€</span> par nuit
-            </p>
-          </div>
-        </section>
+          </section>
+        </Link>
       ))}
     </article>
   );
