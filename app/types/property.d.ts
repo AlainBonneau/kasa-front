@@ -6,6 +6,7 @@ export type Property = {
   cover: string;
   location: string;
   price_per_night: number;
+  pictures: string[];
   rating_avg: number;
   rating_count: number;
   host: {

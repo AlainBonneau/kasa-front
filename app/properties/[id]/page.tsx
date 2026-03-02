@@ -1,4 +1,6 @@
 import { getPropertyById } from "@/app/services/properties.service";
+import PropertyPicture from "./components/PropertyPicture/PropertyPicture";
+import Link from "next/link";
 import "./page.scss";
 
 export default async function PropertyDetailPage({
@@ -12,6 +14,7 @@ export default async function PropertyDetailPage({
 
   try {
     property = await getPropertyById(id);
+    console.log("Logement récupéré :", property.pictures);
   } catch (error) {
     console.error("Erreur lors de la récupération :", error);
   }
@@ -21,10 +24,16 @@ export default async function PropertyDetailPage({
   }
 
   return (
-    <div className="property-detail-page-container">
-      <h1>{property.title}</h1>
-      <p>Prix : {property.price_per_night} €</p>
-      <p>ID : {property.id}</p>
-    </div>
+    <section className="property-detail-page-container">
+      <Link href="/" className="back-link">
+        Retour aux annonces
+      </Link>
+      <div className="property-detail-left">
+        <PropertyPicture pictures={property.pictures} />
+      </div>
+      <div className="property-detail-right">
+        {/* // mettre la partie de l'hôte avec photo etc par la suite */}
+      </div>
+    </section>
   );
 }

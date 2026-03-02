@@ -1,0 +1,70 @@
+.property-picture-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 357px;
+  gap: 10px;
+}
+
+.picture-left {
+  width: 50%;
+  position: relative; // obligatoire pour fill
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.picture-right {
+  width: 50%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 10px;
+}
+
+.small-picture-wrapper {
+  position: relative; // obligatoire pour fill
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .property-picture-container {
+    flex-direction: column;
+    height: auto; // on laisse respirer
+  }
+
+  .picture-left,
+  .picture-right {
+    width: 100%;
+  }
+
+  .picture-left {
+    height: 421px; // ajuste si tu veux (220–300)
+  }
+
+  .picture-right {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scroll-snap-type: x mandatory;
+
+    // optionnel : enlève la scrollbar "moche" (Webkit)
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
+  }
+
+  .small-picture-wrapper {
+    flex: 0 0 140px; // largeur d’une petite photo
+    height: 140px; // hauteur fixe
+    scroll-snap-align: start;
+  }
+}
+
+@media (max-width: 420px) {
+  .small-picture-wrapper {
+    flex-basis: 120px;
+    height: 120px;
+  }
+}
