@@ -4,11 +4,11 @@
   padding-top: 60px;
 
   .property-detail-left {
-    width: 60%;
+    width: 70%;
   }
 
   .property-detail-right {
-    width: 40%;
+    width: 30%;
   }
 }
 
@@ -25,6 +25,12 @@
   margin-bottom: 24px;
 }
 
+.property-detail-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
 @media (max-width: 768px) {
   .property-detail-page-container {
     width: 95%;
@@ -33,5 +39,9 @@
     .property-detail-right {
       width: 100%;
     }
+  }
+
+  .property-detail-wrapper {
+    flex-direction: column;
   }
 }

@@ -1,6 +1,7 @@
 import { getPropertyById } from "@/app/services/properties.service";
 import PropertyPicture from "./components/PropertyPicture/PropertyPicture";
 import PropertyDescription from "./components/PropertyDescription/PropertyDescription";
+import PropertyHost from "./components/PropertyHost/PropertyHost";
 import Link from "next/link";
 import "./page.scss";
 
@@ -29,12 +30,15 @@ export default async function PropertyDetailPage({
       <Link href="/" className="back-link">
         Retour aux annonces
       </Link>
-      <div className="property-detail-left">
-        <PropertyPicture pictures={property.pictures} />
-        <PropertyDescription property={property} />
-      </div>
-      <div className="property-detail-right">
-        {/* // mettre la partie de l'hôte avec photo etc par la suite */}
+      <div className="property-detail-wrapper">
+        <div className="property-detail-left">
+          <PropertyPicture pictures={property.pictures} />
+          <PropertyDescription property={property} />
+        </div>
+        <div className="property-detail-right">
+          {/* // mettre la partie de l'hôte avec photo etc par la suite */}
+          <PropertyHost host={property.host} rating_avg={property.rating_avg} />
+        </div>
       </div>
     </section>
   );
