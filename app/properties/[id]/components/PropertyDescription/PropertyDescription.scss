@@ -1,0 +1,69 @@
+.property-description-container {
+  margin-top: 24px;
+  background-color: var(--white);
+  border: 1px solid var(--light-gray);
+  padding: 24px;
+  border-radius: 10px;
+  min-height: 490px;
+}
+
+// Header de la description du logement
+.property-description-header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  h2 {
+    font-weight: 500;
+  }
+
+  p {
+    color: var(--dark-gray);
+  }
+}
+
+.property-description {
+  padding: 32px 0;
+}
+
+.property-stuff-container h4 {
+  font-size: 0.875rem;
+  margin-bottom: 16px;
+}
+
+ul {
+  width: 50%;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+ul li {
+  height: 33px;
+  padding: 0 16px;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  text-align: center;
+  background-color: var(--light-gray);
+  color: var(--dark-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.property-categories-container {
+  margin-top: 40px;
+
+  h4 {
+    font-size: 0.875rem;
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+    ul {
+      width: 100%;
+      grid-template-columns: repeat(2, 1fr);
+    }
+}

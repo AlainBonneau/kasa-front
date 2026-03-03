@@ -7,6 +7,8 @@ export type Property = {
   location: string;
   price_per_night: number;
   pictures: string[];
+  equipments: string[];
+  tags: string[];
   rating_avg: number;
   rating_count: number;
   host: {
