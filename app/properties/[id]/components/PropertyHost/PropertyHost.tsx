@@ -1,5 +1,5 @@
-import Link from "next/link";
 import Image from "next/image";
+import LinkButton from "@/app/components/ui/LinkButton/LinkButton";
 import type { Property } from "@/app/types/property";
 import { Star } from "lucide-react";
 import "./PropertyHost.scss";
@@ -28,8 +28,8 @@ export default function PropertyHost({
         </span>
       </div>
       <div className="property-host-link">
-        <Link href="/">Contacter l&apos;hôte</Link>
-        <Link href="/">Envoyer un message</Link>
+        <LinkButton name="Contacter l'hôte" link="/" newTab={false} />
+        <LinkButton name="Envoyer un message" link="/" newTab={false} />
       </div>
     </div>
   );
