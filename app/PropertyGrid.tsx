@@ -10,7 +10,7 @@ import type { Property } from "./types/property";
 import "./PropertyGrid.scss";
 
 export default function PropertyGrid() {
-  const { user, status } = useAuthContext();
+  const { user } = useAuthContext();
   const [properties, setProperties] = useState<Property[]>([]);
 
   useEffect(() => {
