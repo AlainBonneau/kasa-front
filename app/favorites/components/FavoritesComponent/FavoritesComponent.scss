@@ -1,0 +1,79 @@
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 355px));
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.property-card {
+  background-color: var(--white);
+  border-radius: 10px;
+
+  .property-card-image {
+    position: relative;
+
+    .remove-favorite-button {
+      z-index: 1000;
+      position: absolute;
+      background-color: var(--main-red);
+      top: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      border-radius: 5px;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .remove-favorite-icon {
+      stroke: var(--light-gray);
+      fill: var(--white);
+      width: 12px;
+    }
+  }
+
+  .property-image {
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    object-fit: cover;
+  }
+
+  .property-card-description {
+    height: 175px;
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .card-description-content {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      p {
+        line-height: 143%;
+        color: var(--dark-gray);
+      }
+    }
+
+    h2 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    .property-card-price {
+      line-height: 143%;
+      color: var(--dark-gray);
+    }
+
+    .property-card-price span {
+      font-weight: 600;
+      color: var(--black);
+    }
+  }
+}
