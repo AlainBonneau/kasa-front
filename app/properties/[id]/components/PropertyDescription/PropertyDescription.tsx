@@ -1,4 +1,5 @@
 import type { Property } from "@/app/types/property";
+import { MapPin } from "lucide-react";
 import "./PropertyDescription.scss";
 
 export default function PropertyDescription({
@@ -10,11 +11,13 @@ export default function PropertyDescription({
     <div className="property-description-container">
       <div className="property-description-header">
         <h2 className="property-title">{property.title}</h2>
-        <p className="property-location">{property.location}</p>
+        <p className="property-location">
+          <MapPin className="location-icon" /> {property.location}
+        </p>
       </div>
 
       <p className="property-description">{property.description}</p>
-
+      
       <div className="property-stuff-container">
         <h4>Équipements</h4>
         <ul className="property-stuff-list">

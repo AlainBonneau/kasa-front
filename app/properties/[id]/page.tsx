@@ -3,6 +3,7 @@ import PropertyPicture from "./components/PropertyPicture/PropertyPicture";
 import PropertyDescription from "./components/PropertyDescription/PropertyDescription";
 import PropertyHost from "./components/PropertyHost/PropertyHost";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import "./page.scss";
 
 export default async function PropertyDetailPage({
@@ -28,7 +29,7 @@ export default async function PropertyDetailPage({
   return (
     <section className="property-detail-page-container">
       <Link href="/" className="back-link">
-        Retour aux annonces
+       <ArrowLeft className="arrow-left-icon" /> Retour aux annonces
       </Link>
       <div className="property-detail-wrapper">
         <div className="property-detail-left">

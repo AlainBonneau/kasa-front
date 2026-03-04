@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Property } from "@/app/types/property";
+import { Star } from "lucide-react";
 import "./PropertyHost.scss";
 
 export default function PropertyHost({
@@ -22,7 +23,9 @@ export default function PropertyHost({
           className="host-picture"
         />
         <h5>{host.name}</h5>
-        <span>{rating_avg}</span>
+        <span>
+          <Star className="rating-icon" /> {rating_avg}
+        </span>
       </div>
       <div className="property-host-link">
         <Link href="/">Contacter l&apos;hôte</Link>
