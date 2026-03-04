@@ -14,7 +14,7 @@
     position: relative;
 
     .remove-favorite-button {
-      z-index: 1000;
+      z-index: 10;
       position: absolute;
       background-color: var(--main-red);
       top: 12px;

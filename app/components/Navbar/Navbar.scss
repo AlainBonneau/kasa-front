@@ -138,7 +138,7 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s ease;
-    z-index: 40;
+    z-index: 500;
   }
 
   .mobile-overlay.open {
@@ -159,7 +159,7 @@
     transition:
       transform 0.2s ease,
       opacity 0.2s ease;
-    z-index: 45;
+    z-index: 500;
     padding: 20px 18px;
   }
 
