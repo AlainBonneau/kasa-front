@@ -1,6 +1,7 @@
 .favorites-grid {
+  margin-top: 50px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 355px));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 30%));
   gap: 20px;
   padding: 20px 0;
 }
@@ -75,5 +76,17 @@
       font-weight: 600;
       color: var(--black);
     }
+  }
+}
+
+@media (max-width: 1200px) {
+  .favorites-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 45%));
+  }
+}
+
+@media (max-width: 768px) {
+  .favorites-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 100%));
   }
 }

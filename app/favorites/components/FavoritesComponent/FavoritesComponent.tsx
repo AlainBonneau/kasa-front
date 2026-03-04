@@ -2,13 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { useAuthContext } from "@/app/context/AuthContext";
-import { getFavorites } from "@/app/services/favorites.service";
+import Link from "next/link";
+import { getFavorites, removeFavorite } from "@/app/services/favorites.service";
 import Image from "next/image";
 import { Heart } from "lucide-react";
 import "./FavoritesComponent.scss";
 
 type Favorite = {
-  id: number;
+  id: string;
   title: string;
   location: string;
   cover: string;
@@ -27,7 +28,6 @@ export default function FavoritesComponent() {
     async function fetchFavorites() {
       try {
         const data = await getFavorites(userId);
-        console.log("Favoris récupérés:", data);
         setFavorites(data);
       } catch (e) {
         console.error(e);
@@ -37,11 +37,13 @@ export default function FavoritesComponent() {
     fetchFavorites();
   }, [status, user?.id]);
 
-  const handleRemoveFavorite = (e: React.MouseEvent, propertyId: number) => {
+  const handleRemoveFavorite = (e: React.MouseEvent, propertyId: string) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log("remove favorite", propertyId);
-    // TODO: appeler ton endpoint toggle / remove puis update state
+
+    removeFavorite(user!.id, propertyId).then(() => {
+      setFavorites((prev) => prev.filter((f) => f.id !== propertyId));
+    });
   };
 
   return (
@@ -53,38 +55,44 @@ export default function FavoritesComponent() {
       ) : (
         <div className="favorites-grid">
           {favorites.map((favorite) => (
-            <section key={favorite.id} className="property-card">
-              <div className="property-card-image">
-                <Image
-                  src={favorite.cover}
-                  alt={favorite.title}
-                  height={376}
-                  width={300}
-                  className="property-image"
-                />
+            <Link
+              key={favorite.id}
+              href={`/properties/${favorite.id}`}
+              className="property-link"
+            >
+              <section className="property-card">
+                <div className="property-card-image">
+                  <Image
+                    src={favorite.cover}
+                    alt={favorite.title}
+                    height={376}
+                    width={300}
+                    className="property-image"
+                  />
 
-                {user && (
-                  <button
-                    type="button"
-                    className="remove-favorite-button"
-                    onClick={(e) => handleRemoveFavorite(e, favorite.id)}
-                  >
-                    <Heart className="remove-favorite-icon" />
-                  </button>
-                )}
-              </div>
-
-              <div className="property-card-description">
-                <div className="card-description-content">
-                  <h2>{favorite.title}</h2>
-                  <p>{favorite.location}</p>
+                  {user && (
+                    <button
+                      type="button"
+                      className="remove-favorite-button"
+                      onClick={(e) => handleRemoveFavorite(e, favorite.id)}
+                    >
+                      <Heart className="remove-favorite-icon" />
+                    </button>
+                  )}
                 </div>
 
-                <p className="property-card-price">
-                  <span>{favorite.price_per_night}€</span> par nuit
-                </p>
-              </div>
-            </section>
+                <div className="property-card-description">
+                  <div className="card-description-content">
+                    <h2>{favorite.title}</h2>
+                    <p>{favorite.location}</p>
+                  </div>
+
+                  <p className="property-card-price">
+                    <span>{favorite.price_per_night}€</span> par nuit
+                  </p>
+                </div>
+              </section>
+            </Link>
           ))}
         </div>
       )}

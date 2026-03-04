@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useAuthContext } from "./context/AuthContext";
 import { listProperties } from "./services/properties.service";
+import { addFavorite } from "./services/favorites.service";
 import Link from "next/link";
 import Image from "next/image";
 import { Heart } from "lucide-react";
@@ -32,6 +33,11 @@ export default function PropertyGrid() {
     console.log(
       `Ajouter la propriété ${propertyId} aux favoris pour l'utilisateur ${user?.id}`,
     );
+    if (!user?.id) {
+      console.error("Utilisateur non authentifié");
+      return;
+    }
+    addFavorite(user.id, propertyId);
   };
 
   return (
