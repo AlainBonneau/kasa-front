@@ -9,6 +9,32 @@
   background-color: var(--white);
   border-radius: 10px;
 
+  .property-card-image {
+    position: relative;
+
+    .favorite-button {
+      z-index: 1000;
+      position: absolute;
+      background-color: var(--light-gray);
+      top: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      border-radius: 5px;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .add-favorite-icon {
+      stroke: var(--dark-gray);
+      fill: var(--dark-gray);
+      width: 12px;
+    }
+  }
+
   .property-image {
     width: 100%;
     border-top-left-radius: 10px;
