@@ -6,6 +6,7 @@ import { listProperties } from "./services/properties.service";
 import { addFavorite } from "./services/favorites.service";
 import Link from "next/link";
 import Image from "next/image";
+import Loader from "./components/ui/Loader/Loader";
 import { Heart } from "lucide-react";
 import type { Property } from "./types/property";
 import "./PropertyGrid.scss";
@@ -13,27 +14,45 @@ import "./PropertyGrid.scss";
 export default function PropertyGrid() {
   const { user } = useAuthContext();
   const [properties, setProperties] = useState<Property[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    let mounted = true;
+
     async function fetchProperties() {
       try {
         const data = await listProperties();
-        setProperties(data);
+        if (mounted) setProperties(data);
       } catch (error) {
         console.error("Erreur lors de la récupération des propriétés:", error);
+      } finally {
+        if (mounted) setIsLoading(false);
       }
     }
 
     fetchProperties();
+    return () => {
+      mounted = false;
+    };
   }, []);
+
+  if (isLoading) {
+    return <Loader label="Chargement des propriétés..." />;
+  }
+
+  if (properties.length === 0) {
+    return <p>Aucune propriété disponible.</p>;
+  }
 
   const handleAddFavorite = (e: React.MouseEvent, propertyId: string) => {
     e.preventDefault();
     e.stopPropagation();
+
     if (!user?.id) {
       console.error("Utilisateur non authentifié");
       return;
     }
+
     addFavorite(user.id, propertyId);
   };
 
@@ -45,7 +64,7 @@ export default function PropertyGrid() {
           href={`/properties/${property.id}`}
           className="property-link"
         >
-          <section key={property.id} className="property-card">
+          <section className="property-card">
             <div className="property-card-image">
               <Image
                 src={property.cover}
@@ -56,13 +75,16 @@ export default function PropertyGrid() {
               />
               {user && (
                 <button
+                  type="button"
                   className="favorite-button"
                   onClick={(e) => handleAddFavorite(e, property.id)}
+                  aria-label="Ajouter aux favoris"
                 >
                   <Heart className="add-favorite-icon" />
                 </button>
               )}
             </div>
+
             <div className="property-card-description">
               <div className="card-description-content">
                 <h2>{property.title}</h2>
