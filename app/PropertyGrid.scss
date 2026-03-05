@@ -25,7 +25,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: 0.3s ease;
       cursor: pointer;
+
+      &:hover {
+        background-color: var(--main-red);
+        .add-favorite-icon {
+          stroke: var(--white);
+          fill: var(--white);
+        }
+      }
     }
 
     .add-favorite-icon {
