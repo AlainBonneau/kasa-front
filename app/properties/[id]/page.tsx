@@ -17,7 +17,6 @@ export default async function PropertyDetailPage({
 
   try {
     property = await getPropertyById(id);
-    console.log("Logement récupéré :", property);
   } catch (error) {
     console.error("Erreur lors de la récupération :", error);
   }
@@ -29,7 +28,7 @@ export default async function PropertyDetailPage({
   return (
     <section className="property-detail-page-container">
       <Link href="/" className="back-link">
-       <ArrowLeft className="arrow-left-icon" /> Retour aux annonces
+        <ArrowLeft className="arrow-left-icon" /> Retour aux annonces
       </Link>
       <div className="property-detail-wrapper">
         <div className="property-detail-left">

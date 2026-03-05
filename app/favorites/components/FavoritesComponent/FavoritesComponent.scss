@@ -1,6 +1,7 @@
 .favorites-grid {
   margin-top: 50px;
   display: grid;
+  justify-content: center;
   grid-template-columns: repeat(auto-fit, minmax(300px, 30%));
   gap: 20px;
   padding: 20px 0;
@@ -88,13 +89,20 @@
   }
 }
 
+.no-favorites-message {
+  margin-top: 50px;
+  text-align: center;
+  color: var(--dark-gray);
+  font-size: 1.125rem;
+}
+
 @media (max-width: 1200px) {
   .favorites-grid {
     grid-template-columns: repeat(auto-fit, minmax(300px, 45%));
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 790px) {
   .favorites-grid {
     grid-template-columns: repeat(auto-fit, minmax(300px, 100%));
   }

@@ -30,9 +30,6 @@ export default function PropertyGrid() {
   const handleAddFavorite = (e: React.MouseEvent, propertyId: string) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log(
-      `Ajouter la propriété ${propertyId} aux favoris pour l'utilisateur ${user?.id}`,
-    );
     if (!user?.id) {
       console.error("Utilisateur non authentifié");
       return;
