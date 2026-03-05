@@ -1,21 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "../context/AuthContext";
 import "./page.scss";
 
 export default function Register() {
-  const { register, status, user } = useAuthContext();
+  const { register, status } = useAuthContext();
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (user) {
-      router.push("/");
-    }
-  }, [user, router]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -83,7 +77,7 @@ export default function Register() {
           </div>
 
           <div className="checkbox-container">
-            <input id="terms" name="terms" type="checkbox" required />
+            <input aria-label="J'accepte les termes" id="terms" name="terms" type="checkbox" required />
             <span>
               J&apos;accepte les{" "}
               <span className="underline">

@@ -47,7 +47,7 @@ export default function FavoritesComponent() {
   }, [status, user?.id]);
 
   if (isLoading) {
-    return <Loader label="Chargement de vos favoris..." />;
+    return <Loader fullscreen={true} label="Chargement de vos favoris..." />;
   }
 
   const handleRemoveFavorite = (e: React.MouseEvent, propertyId: string) => {
@@ -87,6 +87,7 @@ export default function FavoritesComponent() {
                     <button
                       type="button"
                       className="remove-favorite-button"
+                      aria-label="Retirez des favories"
                       onClick={(e) => handleRemoveFavorite(e, favorite.id)}
                     >
                       <Heart className="remove-favorite-icon" />
