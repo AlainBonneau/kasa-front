@@ -17,22 +17,22 @@ export default function PropertyGrid() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    let mounted = true;
+    let isMounted = true;
 
     async function fetchProperties() {
       try {
         const data = await listProperties();
-        if (mounted) setProperties(data);
+        if (isMounted) setProperties(data);
       } catch (error) {
         console.error("Erreur lors de la récupération des propriétés:", error);
       } finally {
-        if (mounted) setIsLoading(false);
+        if (isMounted) setIsLoading(false);
       }
     }
 
     fetchProperties();
     return () => {
-      mounted = false;
+      isMounted = false;
     };
   }, []);
 

@@ -5,6 +5,7 @@ import { useAuthContext } from "@/app/context/AuthContext";
 import Link from "next/link";
 import { getFavorites, removeFavorite } from "@/app/services/favorites.service";
 import Image from "next/image";
+import Loader from "@/app/components/ui/Loader/Loader";
 import { Heart } from "lucide-react";
 import "./FavoritesComponent.scss";
 
@@ -19,8 +20,11 @@ type Favorite = {
 export default function FavoritesComponent() {
   const { user, status } = useAuthContext();
   const [favorites, setFavorites] = useState<Favorite[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+
     if (status !== "authenticated" || !user?.id) return;
 
     const userId = user.id;
@@ -28,14 +32,23 @@ export default function FavoritesComponent() {
     async function fetchFavorites() {
       try {
         const data = await getFavorites(userId);
-        setFavorites(data);
+        if (isMounted) setFavorites(data);
       } catch (e) {
         console.error(e);
+      } finally {
+        if (isMounted) setIsLoading(false);
       }
     }
 
     fetchFavorites();
+    return () => {
+      isMounted = false;
+    };
   }, [status, user?.id]);
+
+  if (isLoading) {
+    return <Loader label="Chargement de vos favoris..." />;
+  }
 
   const handleRemoveFavorite = (e: React.MouseEvent, propertyId: string) => {
     e.preventDefault();
