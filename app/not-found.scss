@@ -22,3 +22,10 @@
         line-height: 143%;
     }
 }
+
+.link-btn {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 50%;
+}

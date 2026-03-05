@@ -10,8 +10,10 @@ export default function NotFound() {
           Il semble que la page que vous cherchez ait pris des vacances… ou
           n’ait jamais existé.
         </p>
-        <LinkButton name="Accueil" link="/" />
-        <LinkButton name="Logements" link="/logements" />
+        <div className="link-btn">
+          <LinkButton name="Accueil" link="/" />
+          <LinkButton name="Logements" link="/logements" />
+        </div>
       </div>
     </div>
   );
