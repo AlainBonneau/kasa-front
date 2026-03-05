@@ -26,7 +26,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: 0.3s ease;
       cursor: pointer;
+
+      &:hover {
+        background-color: var(--light-gray);
+        .remove-favorite-icon {
+          stroke: var(--dark-gray);
+          fill: var(--dark-gray);
+        }
+      }
     }
 
     .remove-favorite-icon {
