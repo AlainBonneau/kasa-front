@@ -11,3 +11,11 @@ export type PropertyInfoSectionProps = {
   location: string;
   setLocation: React.Dispatch<React.SetStateAction<string>>;
 };
+
+export type PropertyImagesSectionProps = {
+  coverPicture: File | null;
+  setCoverPicture: React.Dispatch<React.SetStateAction<File | null>>;
+
+  propertyPictures: File[];
+  setPropertyPictures: React.Dispatch<React.SetStateAction<File[]>>;
+};

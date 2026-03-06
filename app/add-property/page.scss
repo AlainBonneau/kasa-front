@@ -54,7 +54,61 @@ form {
 }
 
 .form-top {
+  margin-top: 50px;
   width: 100%;
   display: flex;
   gap: 16px;
+}
+
+.form-top-right {
+  width: 50%;
+}
+
+// Style global pour les labels et inputs
+.input-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  label {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  input {
+    padding: 16px 10px;
+    height: 40px;
+    width: 100%;
+    border: 1px solid var(--light-gray);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: var(--dark-gray);
+  }
+
+  textarea {
+    font-family: "Inter", sans-serif;
+    padding: 16px 10px;
+    height: 120px;
+    width: 100%;
+    border: 1px solid var(--light-gray);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: var(--dark-gray);
+    resize: vertical;
+  }
+}
+
+// Version mobile
+@media (max-width: 768px) {
+  .add-property-page {
+    width: 90%;
+  }
+
+  .form-top {
+    flex-direction: column;
+  }
+
+  .form-top-right {
+    width: 100%;
+  }
 }

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import PropertyInfoSection from "./components/PropertyInfoSection/PropertyInfoSection";
+import PropertyImagesSection from "./components/PropertyImagesSection/PropertyImagesSection";
 import { ArrowLeft } from "lucide-react";
 import "./page.scss";
 
@@ -53,6 +54,15 @@ export default function AddProperty() {
             location={location}
             setLocation={setLocation}
           />
+          <div className="form-top-right">
+            <PropertyImagesSection
+              coverPicture={coverPicture}
+              setCoverPicture={setCoverPicture}
+              propertyPictures={propertyPictures}
+              setPropertyPictures={setPropertyPictures}
+            />
+            {/* Ajouter la section hôte juste en dessous */}
+          </div>
         </section>
         <section className="form-bottom"></section>
       </form>
