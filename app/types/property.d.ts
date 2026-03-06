@@ -6,6 +6,7 @@ export type Property = {
   cover: string;
   location: string;
   price_per_night: number;
+  postalCode: string;
   pictures: string[];
   equipments: string[];
   tags: string[];
