@@ -5,6 +5,7 @@ import Link from "next/link";
 import PropertyInfoSection from "./components/PropertyInfoSection/PropertyInfoSection";
 import PropertyImagesSection from "./components/PropertyImagesSection/PropertyImagesSection";
 import HostSection from "./components/HostSection/HostSection";
+import EquipmentSection from "./components/EquipmentSection/EquipmentSection";
 import { ArrowLeft } from "lucide-react";
 import "./page.scss";
 
@@ -32,6 +33,7 @@ export default function AddProperty() {
       Images du logement: ${propertyPictures.length > 0 ? propertyPictures.map((file) => file.name).join(", ") : "Aucune"}
       Nom de l'hôte: ${hostName}
       Photo de profil de l'hôte: ${hostPicture ? hostPicture.name : "Aucune"}`,
+      `Équipements: ${equipments.length > 0 ? equipments.join(", ") : "Aucun"}`,
     );
   }
 
@@ -74,7 +76,14 @@ export default function AddProperty() {
             />
           </div>
         </section>
-        <section className="form-bottom"></section>
+        <section className="form-bottom">
+          {/* Sections pour équipements et catégories à ajouter ici */}
+          <EquipmentSection
+            equipments={equipments}
+            setEquipments={setEquipments}
+          />
+          {/* // CategoriesSection à ajouter ici */}
+        </section>
       </form>
     </div>
   );

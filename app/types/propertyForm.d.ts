@@ -26,3 +26,8 @@ export type HostSectionProps = {
   hostPicture: File | null;
   setHostPicture: React.Dispatch<React.SetStateAction<File | null>>;
 };
+
+export type EquipmentSectionProps = {
+  equipments: string[];
+  setEquipments: React.Dispatch<React.SetStateAction<string[]>>;
+};

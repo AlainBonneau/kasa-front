@@ -1,0 +1,35 @@
+.property-equipment-section {
+  width: 50%;
+  background-color: var(--white);
+  border-radius: 10px;
+  padding: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  h2 {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+}
+
+.tag-equiments-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 40px;
+}
+
+.equipment-tag {
+  display: flex;
+  align-items: center;
+  color: var(--dark-gray);
+  gap: 10px;
+  font-size: 0.75rem;
+  cursor: pointer;
+
+  input {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+}
