@@ -38,7 +38,7 @@ export default function Navbar() {
         </div>
 
         <div className="navbar-right">
-          <Link href="/create-property" className="add-property">
+          <Link href="/add-property" className="add-property">
             +Ajouter un logement
           </Link>
 

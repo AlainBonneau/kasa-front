@@ -1,0 +1,20 @@
+.property-host-section {
+  background-color: var(--white);
+  border: 1px solid var(--light-gray);
+  border-radius: 10px;
+  height: 50%;
+  width: 100%;
+  padding: 0 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+// Version mobile
+@media (max-width: 768px) {
+  .property-host-section {
+    height: auto;
+    padding: 16px;
+  }
+}

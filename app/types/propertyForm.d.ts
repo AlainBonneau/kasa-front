@@ -19,3 +19,10 @@ export type PropertyImagesSectionProps = {
   propertyPictures: File[];
   setPropertyPictures: React.Dispatch<React.SetStateAction<File[]>>;
 };
+
+export type HostSectionProps = {
+  hostName: string;
+  setHostName: React.Dispatch<React.SetStateAction<string>>;
+  hostPicture: File | null;
+  setHostPicture: React.Dispatch<React.SetStateAction<File | null>>;
+};

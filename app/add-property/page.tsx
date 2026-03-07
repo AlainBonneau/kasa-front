@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import PropertyInfoSection from "./components/PropertyInfoSection/PropertyInfoSection";
 import PropertyImagesSection from "./components/PropertyImagesSection/PropertyImagesSection";
+import HostSection from "./components/HostSection/HostSection";
 import { ArrowLeft } from "lucide-react";
 import "./page.scss";
 
@@ -23,10 +24,14 @@ export default function AddProperty() {
   function handleFormSubmit(e: React.FormEvent) {
     e.preventDefault();
     console.log(
-      "Information reçu : " + title,
-      description,
-      postalCode,
-      location,
+      `Titre: ${title}
+      Description: ${description}
+      Code postal: ${postalCode}
+      Localisation: ${location}
+      Image de couverture: ${coverPicture ? coverPicture.name : "Aucune"}
+      Images du logement: ${propertyPictures.length > 0 ? propertyPictures.map((file) => file.name).join(", ") : "Aucune"}
+      Nom de l'hôte: ${hostName}
+      Photo de profil de l'hôte: ${hostPicture ? hostPicture.name : "Aucune"}`,
     );
   }
 
@@ -61,7 +66,12 @@ export default function AddProperty() {
               propertyPictures={propertyPictures}
               setPropertyPictures={setPropertyPictures}
             />
-            {/* Ajouter la section hôte juste en dessous */}
+            <HostSection
+              hostName={hostName}
+              setHostName={setHostName}
+              hostPicture={hostPicture}
+              setHostPicture={setHostPicture}
+            />
           </div>
         </section>
         <section className="form-bottom"></section>
