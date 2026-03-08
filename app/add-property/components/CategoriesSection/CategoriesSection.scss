@@ -2,7 +2,8 @@
   height: 50%;
   width: 50%;
   background-color: var(--white);
-  border-radius: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--light-gray);
   padding: 80px;
   display: flex;
   flex-direction: column;
@@ -19,7 +20,7 @@
 .categories-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 4px;
 }
 
 .category-tag {
@@ -43,8 +44,8 @@
     border-radius: 8px;
     background-color: #f5f4f4;
     border: 1px solid transparent;
-    font-size: 0.875rem;
-    color: #4a4a4a;
+    font-size: 0.75rem;
+    color: var(--dark-gray);
     transition: all 0.2s ease;
   }
 
@@ -133,7 +134,7 @@
   border: none;
   background: none;
   color: #a63b1d;
-  font-size: 0.95rem;
+  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
 
@@ -144,6 +145,7 @@
 
 @media (max-width: 768px) {
   .property-categories-section {
+    width: 100%;
     padding: 24px;
   }
 

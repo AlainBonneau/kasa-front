@@ -2,14 +2,16 @@
   width: 50%;
   background-color: var(--white);
   border-radius: 10px;
+  border: 1px solid var(--light-gray);
   padding: 80px;
   display: flex;
   flex-direction: column;
   gap: 24px;
 
   h2 {
-    font-size: 1rem;
+    font-size: 0.875rem;
     font-weight: 500;
+    color: var(--black);
   }
 }
 
@@ -31,5 +33,17 @@
     width: 16px;
     height: 16px;
     cursor: pointer;
+  }
+}
+
+// Version mobile
+@media (max-width: 768px) {
+  .property-equipment-section {
+    width: 100%;
+    padding: 24px;
+  }
+
+  .tag-equiments-container {
+    gap: 16px;
   }
 }

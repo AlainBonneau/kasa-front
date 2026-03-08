@@ -6,6 +6,8 @@ import { CATEGORIES } from "@/app/data/cartegories";
 import { Plus } from "lucide-react";
 import "./CategoriesSection.scss";
 
+const CATEGORIES_SET = new Set<string>(CATEGORIES);
+
 export default function CategoriesSection({
   categories,
   setCategories,
@@ -30,7 +32,7 @@ export default function CategoriesSection({
     const alreadyExists =
       categories.includes(trimmedCategory) ||
       customCategories.includes(trimmedCategory) ||
-      CATEGORIES.includes(trimmedCategory);
+      CATEGORIES_SET.has(trimmedCategory);
 
     if (alreadyExists) {
       setNewCategory("");

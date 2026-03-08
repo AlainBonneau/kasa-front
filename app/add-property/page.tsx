@@ -35,6 +35,7 @@ export default function AddProperty() {
       Nom de l'hôte: ${hostName}
       Photo de profil de l'hôte: ${hostPicture ? hostPicture.name : "Aucune"}`,
       `Équipements: ${equipments.length > 0 ? equipments.join(", ") : "Aucun"}`,
+      `Catégories: ${[...categories, ...customCategories].length > 0 ? [...categories, ...customCategories].join(", ") : "Aucune"}`,
     );
   }
 
@@ -51,45 +52,47 @@ export default function AddProperty() {
             Ajouter
           </button>
         </div>
-        <section className="form-top">
-          <PropertyInfoSection
-            title={title}
-            setTitle={setTitle}
-            description={description}
-            setDescription={setDescription}
-            postalCode={postalCode}
-            setPostalCode={setPostalCode}
-            location={location}
-            setLocation={setLocation}
-          />
-          <div className="form-top-right">
-            <PropertyImagesSection
-              coverPicture={coverPicture}
-              setCoverPicture={setCoverPicture}
-              propertyPictures={propertyPictures}
-              setPropertyPictures={setPropertyPictures}
+        <section className="addproperty-form">
+          <div className="form-top">
+            <PropertyInfoSection
+              title={title}
+              setTitle={setTitle}
+              description={description}
+              setDescription={setDescription}
+              postalCode={postalCode}
+              setPostalCode={setPostalCode}
+              location={location}
+              setLocation={setLocation}
             />
-            <HostSection
-              hostName={hostName}
-              setHostName={setHostName}
-              hostPicture={hostPicture}
-              setHostPicture={setHostPicture}
+            <div className="form-top-right">
+              <PropertyImagesSection
+                coverPicture={coverPicture}
+                setCoverPicture={setCoverPicture}
+                propertyPictures={propertyPictures}
+                setPropertyPictures={setPropertyPictures}
+              />
+              <HostSection
+                hostName={hostName}
+                setHostName={setHostName}
+                hostPicture={hostPicture}
+                setHostPicture={setHostPicture}
+              />
+            </div>
+          </div>
+          <div className="form-bottom">
+            {/* Sections pour équipements et catégories à ajouter ici */}
+            <EquipmentSection
+              equipments={equipments}
+              setEquipments={setEquipments}
+            />
+            {/* // CategoriesSection à ajouter ici */}
+            <CategoriesSection
+              categories={categories}
+              setCategories={setCategories}
+              customCategories={customCategories}
+              setCustomCategories={setCustomCategories}
             />
           </div>
-        </section>
-        <section className="form-bottom">
-          {/* Sections pour équipements et catégories à ajouter ici */}
-          <EquipmentSection
-            equipments={equipments}
-            setEquipments={setEquipments}
-          />
-          {/* // CategoriesSection à ajouter ici */}
-          <CategoriesSection
-            categories={categories}
-            setCategories={setCategories}
-            customCategories={customCategories}
-            setCustomCategories={setCustomCategories}
-          />
         </section>
       </form>
     </div>
