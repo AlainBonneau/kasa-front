@@ -1,6 +1,6 @@
 import type { EquipmentSectionProps } from "@/app/types/propertyForm";
-import "./EquipmentSection.scss";
 import { EQUIPMENTS } from "@/app/data/equipments";
+import "./EquipmentSection.scss";
 
 export default function EquipmentSection({
   equipments,

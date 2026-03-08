@@ -6,6 +6,7 @@ import PropertyInfoSection from "./components/PropertyInfoSection/PropertyInfoSe
 import PropertyImagesSection from "./components/PropertyImagesSection/PropertyImagesSection";
 import HostSection from "./components/HostSection/HostSection";
 import EquipmentSection from "./components/EquipmentSection/EquipmentSection";
+import CategoriesSection from "./components/CategoriesSection/CategoriesSection";
 import { ArrowLeft } from "lucide-react";
 import "./page.scss";
 
@@ -83,6 +84,12 @@ export default function AddProperty() {
             setEquipments={setEquipments}
           />
           {/* // CategoriesSection à ajouter ici */}
+          <CategoriesSection
+            categories={categories}
+            setCategories={setCategories}
+            customCategories={customCategories}
+            setCustomCategories={setCustomCategories}
+          />
         </section>
       </form>
     </div>

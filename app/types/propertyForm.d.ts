@@ -31,3 +31,10 @@ export type EquipmentSectionProps = {
   equipments: string[];
   setEquipments: React.Dispatch<React.SetStateAction<string[]>>;
 };
+
+export type CategoriesSectionProps = {
+  categories: string[];
+  setCategories: React.Dispatch<React.SetStateAction<string[]>>;
+  customCategories: string[];
+  setCustomCategories: React.Dispatch<React.SetStateAction<string[]>>;
+};
