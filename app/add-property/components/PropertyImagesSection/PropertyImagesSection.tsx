@@ -64,14 +64,14 @@ export default function PropertyImagesSection({
 
           <input
             type="file"
-            id="propertyPictures"
-            accept="image/*"
             multiple
+            id="propertyPictures"
             className="hidden-file-input"
+            accept="image/*"
             onChange={(e) => {
-              if (e.target.files) {
-                setPropertyPictures(Array.from(e.target.files));
-              }
+              if (!e.target.files) return;
+              const newFiles = Array.from(e.target.files);
+              setPropertyPictures((prev) => [...prev, ...newFiles]);
             }}
           />
         </div>

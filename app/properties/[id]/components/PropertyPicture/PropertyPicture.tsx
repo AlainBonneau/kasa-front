@@ -22,6 +22,10 @@ export default function PropertyPicture({
     return null;
   }
 
+  if (!cover) {
+    cover = pictures[0];
+  }
+
   console.log("PropertyPicture - pictures:", pictures);
 
   return (
