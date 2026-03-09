@@ -6,6 +6,8 @@ export default function PropertyInfoSection({
   setTitle,
   description,
   setDescription,
+  price_per_night,
+  setPricePerNight,
   postalCode,
   setPostalCode,
   location,
@@ -48,6 +50,15 @@ export default function PropertyInfoSection({
           id="location"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
+        />
+      </div>
+      <div className="input-label">
+        <label htmlFor="price_per_night">Prix par nuit</label>
+        <input
+          type="number"
+          id="price_per_night"
+          value={price_per_night}
+          onChange={(e) => setPricePerNight(e.target.value)}
         />
       </div>
     </div>

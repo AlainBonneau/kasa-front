@@ -16,7 +16,10 @@ export default function PropertyHost({
       <h2>Votre hôte</h2>
       <div className="host-infos-container">
         <Image
-          src={host.picture}
+          src={
+            host.picture ||
+            "https://rightathomerealtyinc.com//image/PropertyPhoto/housedefault.png"
+          }
           alt={`Photo de ${host.name}`}
           width={82}
           height={82}

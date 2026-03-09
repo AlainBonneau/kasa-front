@@ -6,6 +6,7 @@ import Link from "next/link";
 import { getFavorites, removeFavorite } from "@/app/services/favorites.service";
 import Image from "next/image";
 import Loader from "@/app/components/ui/Loader/Loader";
+import { getImageUrl } from "@/app/lib/utils/backend-picture";
 import { Heart } from "lucide-react";
 import "./FavoritesComponent.scss";
 
@@ -76,11 +77,12 @@ export default function FavoritesComponent() {
               <section className="property-card">
                 <div className="property-card-image">
                   <Image
-                    src={favorite.cover}
+                    src={getImageUrl(favorite.cover)}
                     alt={favorite.title}
                     height={376}
                     width={300}
                     className="property-image"
+                    unoptimized
                   />
 
                   {user && (

@@ -6,6 +6,7 @@ import { listProperties } from "./services/properties.service";
 import { addFavorite } from "./services/favorites.service";
 import Link from "next/link";
 import Image from "next/image";
+import { getImageUrl } from "./lib/utils/backend-picture";
 import Loader from "./components/ui/Loader/Loader";
 import { Heart } from "lucide-react";
 import type { Property } from "./types/property";
@@ -67,11 +68,12 @@ export default function PropertyGrid() {
           <section className="property-card">
             <div className="property-card-image">
               <Image
-                src={property.cover}
+                src={getImageUrl(property.cover)}
                 alt={property.title}
                 height={376}
                 width={300}
                 className="property-image"
+                unoptimized
               />
               {user && (
                 <button

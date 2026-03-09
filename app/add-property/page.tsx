@@ -2,17 +2,23 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import { useAuthContext } from "../context/AuthContext";
+import { createProperty } from "../services/properties.service";
+import { uploadImage } from "../services/upload.service";
 import PropertyInfoSection from "./components/PropertyInfoSection/PropertyInfoSection";
 import PropertyImagesSection from "./components/PropertyImagesSection/PropertyImagesSection";
 import HostSection from "./components/HostSection/HostSection";
 import EquipmentSection from "./components/EquipmentSection/EquipmentSection";
 import CategoriesSection from "./components/CategoriesSection/CategoriesSection";
-import { ArrowLeft } from "lucide-react";
 import "./page.scss";
 
 export default function AddProperty() {
+  const { user } = useAuthContext();
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [price_per_night, setPricePerNight] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [location, setLocation] = useState("");
   const [coverPicture, setCoverPicture] = useState<File | null>(null);
@@ -22,36 +28,101 @@ export default function AddProperty() {
   const [equipments, setEquipments] = useState<string[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [customCategories, setCustomCategories] = useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function handleFormSubmit(e: React.FormEvent) {
+  async function handleFormSubmit(e: React.FormEvent) {
     e.preventDefault();
-    console.log(
-      `Titre: ${title}
-      Description: ${description}
-      Code postal: ${postalCode}
-      Localisation: ${location}
-      Image de couverture: ${coverPicture ? coverPicture.name : "Aucune"}
-      Images du logement: ${propertyPictures.length > 0 ? propertyPictures.map((file) => file.name).join(", ") : "Aucune"}
-      Nom de l'hôte: ${hostName}
-      Photo de profil de l'hôte: ${hostPicture ? hostPicture.name : "Aucune"}`,
-      `Équipements: ${equipments.length > 0 ? equipments.join(", ") : "Aucun"}`,
-      `Catégories: ${[...categories, ...customCategories].length > 0 ? [...categories, ...customCategories].join(", ") : "Aucune"}`,
-    );
+
+    if (!user?.id) {
+      setError("Utilisateur non connecté.");
+      return;
+    }
+
+    if (!title.trim()) {
+      setError("Le titre est obligatoire.");
+      return;
+    }
+
+    setError(null);
+    setIsSubmitting(true);
+
+    try {
+      let coverUrl = "";
+      const picturesUrls: string[] = [];
+
+      if (coverPicture) {
+        const uploadedCover = await uploadImage({
+          file: coverPicture,
+          purpose: "property-cover",
+        });
+        coverUrl = uploadedCover.url;
+      }
+
+      for (const picture of propertyPictures) {
+        const uploadedPicture = await uploadImage({
+          file: picture,
+          purpose: "property-picture",
+        });
+        picturesUrls.push(uploadedPicture.url);
+      }
+
+      const payload = {
+        title: title.trim(),
+        description: description.trim(),
+        location: location.trim(),
+        price_per_night: Number(price_per_night || 80),
+        host_id: user.id,
+        cover: coverUrl || null,
+        pictures: picturesUrls,
+        equipments,
+        tags: [...categories, ...customCategories],
+      };
+
+      console.log("CREATE PROPERTY PAYLOAD:", payload);
+
+      await createProperty(payload);
+
+      setTitle("");
+      setDescription("");
+      setPricePerNight("");
+      setPostalCode("");
+      setLocation("");
+      setCoverPicture(null);
+      setPropertyPictures([]);
+      setHostName("");
+      setHostPicture(null);
+      setEquipments([]);
+      setCategories([]);
+      setCustomCategories([]);
+    } catch (err) {
+      console.error("Erreur lors de la création de la propriété :", err);
+      setError("Impossible de créer la propriété.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
     <div className="add-property-page">
       <Link href="/">
-        {" "}
         <ArrowLeft className="arrow-left-icon" /> Retour
       </Link>
+
       <form onSubmit={handleFormSubmit}>
         <div className="form-header">
           <h1>Ajouter une propriété</h1>
-          <button className="add-property-btn" type="submit">
-            Ajouter
+          <button
+            className="add-property-btn"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Ajout en cours..." : "Ajouter"}
           </button>
         </div>
+
+        {error && <p className="form-error">{error}</p>}
+
         <section className="addproperty-form">
           <div className="form-top">
             <PropertyInfoSection
@@ -59,11 +130,14 @@ export default function AddProperty() {
               setTitle={setTitle}
               description={description}
               setDescription={setDescription}
+              price_per_night={price_per_night}
+              setPricePerNight={setPricePerNight}
               postalCode={postalCode}
               setPostalCode={setPostalCode}
               location={location}
               setLocation={setLocation}
             />
+
             <div className="form-top-right">
               <PropertyImagesSection
                 coverPicture={coverPicture}
@@ -71,6 +145,7 @@ export default function AddProperty() {
                 propertyPictures={propertyPictures}
                 setPropertyPictures={setPropertyPictures}
               />
+
               <HostSection
                 hostName={hostName}
                 setHostName={setHostName}
@@ -79,13 +154,13 @@ export default function AddProperty() {
               />
             </div>
           </div>
+
           <div className="form-bottom">
-            {/* Sections pour équipements et catégories à ajouter ici */}
             <EquipmentSection
               equipments={equipments}
               setEquipments={setEquipments}
             />
-            {/* // CategoriesSection à ajouter ici */}
+
             <CategoriesSection
               categories={categories}
               setCategories={setCategories}

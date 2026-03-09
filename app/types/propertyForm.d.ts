@@ -10,6 +10,9 @@ export type PropertyInfoSectionProps = {
 
   location: string;
   setLocation: React.Dispatch<React.SetStateAction<string>>;
+
+  price_per_night: string;
+  setPricePerNight: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export type PropertyImagesSectionProps = {
