@@ -25,6 +25,8 @@ export default async function PropertyDetailPage({
     return <p>Logement introuvable</p>;
   }
 
+  console.log("PropertyDetailPage - property:", property);
+
   return (
     <section className="property-detail-page-container">
       <Link href="/" className="back-link">
@@ -32,7 +34,7 @@ export default async function PropertyDetailPage({
       </Link>
       <div className="property-detail-wrapper">
         <div className="property-detail-left">
-          <PropertyPicture pictures={property.pictures} />
+          <PropertyPicture cover={property.cover} pictures={property.pictures} />
           <PropertyDescription property={property} />
         </div>
         <div className="property-detail-right">

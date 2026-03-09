@@ -11,16 +11,24 @@ function getImageUrl(src?: string) {
   return `${BACKEND_URL}${src}`;
 }
 
-export default function PropertyPicture({ pictures }: { pictures: string[] }) {
+export default function PropertyPicture({
+  cover,
+  pictures,
+}: {
+  cover?: string;
+  pictures: string[];
+}) {
   if (!pictures || pictures.length === 0) {
     return null;
   }
+
+  console.log("PropertyPicture - pictures:", pictures);
 
   return (
     <div className="property-picture-container">
       <div className="picture-left">
         <Image
-          src={getImageUrl(pictures[0])}
+          src={getImageUrl(cover)}
           alt="Photo principale du logement"
           className="property-picture-main"
           fill
@@ -31,11 +39,11 @@ export default function PropertyPicture({ pictures }: { pictures: string[] }) {
       </div>
 
       <div className="picture-right">
-        {pictures.slice(1).map((picture, index) => (
+        {pictures.map((picture, index) => (
           <div key={index} className="small-picture-wrapper">
             <Image
               src={getImageUrl(picture)}
-              alt={`Photo ${index + 2} du logement`}
+              alt={`Photo ${index + 1} du logement`}
               fill
               sizes="50vw"
               style={{ objectFit: "cover" }}
