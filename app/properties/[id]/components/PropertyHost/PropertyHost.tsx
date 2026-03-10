@@ -1,5 +1,5 @@
 import Image from "next/image";
-import LinkButton from "@/app/components/ui/LinkButton/LinkButton";
+import PropertyDetailClientActions from "../PropertyDetailClientActions/PropertyDetailClientActions";
 import type { Property } from "@/app/types/property";
 import { Star } from "lucide-react";
 import "./PropertyHost.scss";
@@ -14,11 +14,12 @@ export default function PropertyHost({
   return (
     <div className="property-host-container">
       <h2>Votre hôte</h2>
+
       <div className="host-infos-container">
         <Image
           src={
             host.picture ||
-            "https://rightathomerealtyinc.com//image/PropertyPhoto/housedefault.png"
+            "https://rightathomerealtyinc.com/image/PropertyPhoto/housedefault.png"
           }
           alt={`Photo de ${host.name}`}
           width={82}
@@ -30,9 +31,17 @@ export default function PropertyHost({
           <Star className="rating-icon" /> {rating_avg}
         </span>
       </div>
+
       <div className="property-host-link">
-        <LinkButton name="Contacter l'hôte" link="/" newTab={false} />
-        <LinkButton name="Envoyer un message" link="/" newTab={false} />
+        <PropertyDetailClientActions
+          property={{
+            id: "",
+            title: "",
+            host: {
+              name: host.name,
+            },
+          }}
+        />
       </div>
     </div>
   );

@@ -25,20 +25,22 @@ export default async function PropertyDetailPage({
     return <p>Logement introuvable</p>;
   }
 
-  console.log("PropertyDetailPage - property:", property);
-
   return (
     <section className="property-detail-page-container">
       <Link href="/" className="back-link">
         <ArrowLeft className="arrow-left-icon" /> Retour aux annonces
       </Link>
+
       <div className="property-detail-wrapper">
         <div className="property-detail-left">
-          <PropertyPicture cover={property.cover} pictures={property.pictures} />
+          <PropertyPicture
+            cover={property.cover}
+            pictures={property.pictures}
+          />
           <PropertyDescription property={property} />
         </div>
+
         <div className="property-detail-right">
-          {/* // mettre la partie de l'hôte avec photo etc par la suite */}
           <PropertyHost host={property.host} rating_avg={property.rating_avg} />
         </div>
       </div>
