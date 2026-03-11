@@ -11,6 +11,7 @@ import PropertyImagesSection from "./components/PropertyImagesSection/PropertyIm
 import HostSection from "./components/HostSection/HostSection";
 import EquipmentSection from "./components/EquipmentSection/EquipmentSection";
 import CategoriesSection from "./components/CategoriesSection/CategoriesSection";
+import ProtectedRoute from "../components/ProtectedRoute";
 import "./page.scss";
 
 export default function AddProperty() {
@@ -104,72 +105,74 @@ export default function AddProperty() {
   }
 
   return (
-    <div className="add-property-page">
-      <Link href="/">
-        <ArrowLeft className="arrow-left-icon" /> Retour
-      </Link>
+    <ProtectedRoute>
+      <div className="add-property-page">
+        <Link href="/">
+          <ArrowLeft className="arrow-left-icon" /> Retour
+        </Link>
 
-      <form onSubmit={handleFormSubmit}>
-        <div className="form-header">
-          <h1>Ajouter une propriété</h1>
-          <button
-            className="add-property-btn"
-            type="submit"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Ajout en cours..." : "Ajouter"}
-          </button>
-        </div>
+        <form onSubmit={handleFormSubmit}>
+          <div className="form-header">
+            <h1>Ajouter une propriété</h1>
+            <button
+              className="add-property-btn"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Ajout en cours..." : "Ajouter"}
+            </button>
+          </div>
 
-        {error && <p className="form-error">{error}</p>}
+          {error && <p className="form-error">{error}</p>}
 
-        <section className="addproperty-form">
-          <div className="form-top">
-            <PropertyInfoSection
-              title={title}
-              setTitle={setTitle}
-              description={description}
-              setDescription={setDescription}
-              price_per_night={price_per_night}
-              setPricePerNight={setPricePerNight}
-              postalCode={postalCode}
-              setPostalCode={setPostalCode}
-              location={location}
-              setLocation={setLocation}
-            />
-
-            <div className="form-top-right">
-              <PropertyImagesSection
-                coverPicture={coverPicture}
-                setCoverPicture={setCoverPicture}
-                propertyPictures={propertyPictures}
-                setPropertyPictures={setPropertyPictures}
+          <section className="addproperty-form">
+            <div className="form-top">
+              <PropertyInfoSection
+                title={title}
+                setTitle={setTitle}
+                description={description}
+                setDescription={setDescription}
+                price_per_night={price_per_night}
+                setPricePerNight={setPricePerNight}
+                postalCode={postalCode}
+                setPostalCode={setPostalCode}
+                location={location}
+                setLocation={setLocation}
               />
 
-              <HostSection
-                hostName={hostName}
-                setHostName={setHostName}
-                hostPicture={hostPicture}
-                setHostPicture={setHostPicture}
+              <div className="form-top-right">
+                <PropertyImagesSection
+                  coverPicture={coverPicture}
+                  setCoverPicture={setCoverPicture}
+                  propertyPictures={propertyPictures}
+                  setPropertyPictures={setPropertyPictures}
+                />
+
+                <HostSection
+                  hostName={hostName}
+                  setHostName={setHostName}
+                  hostPicture={hostPicture}
+                  setHostPicture={setHostPicture}
+                />
+              </div>
+            </div>
+
+            <div className="form-bottom">
+              <EquipmentSection
+                equipments={equipments}
+                setEquipments={setEquipments}
+              />
+
+              <CategoriesSection
+                categories={categories}
+                setCategories={setCategories}
+                customCategories={customCategories}
+                setCustomCategories={setCustomCategories}
               />
             </div>
-          </div>
-
-          <div className="form-bottom">
-            <EquipmentSection
-              equipments={equipments}
-              setEquipments={setEquipments}
-            />
-
-            <CategoriesSection
-              categories={categories}
-              setCategories={setCategories}
-              customCategories={customCategories}
-              setCustomCategories={setCustomCategories}
-            />
-          </div>
-        </section>
-      </form>
-    </div>
+          </section>
+        </form>
+      </div>
+    </ProtectedRoute>
   );
 }
