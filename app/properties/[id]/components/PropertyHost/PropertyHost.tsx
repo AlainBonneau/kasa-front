@@ -1,5 +1,5 @@
 import Image from "next/image";
-import PropertyDetailClientActions from "../PropertyDetailClientActions/PropertyDetailClientActions";
+import LinkButton from "@/app/components/ui/LinkButton/LinkButton";
 import type { Property } from "@/app/types/property";
 import { Star } from "lucide-react";
 import "./PropertyHost.scss";
@@ -33,14 +33,15 @@ export default function PropertyHost({
       </div>
 
       <div className="property-host-link">
-        <PropertyDetailClientActions
-          property={{
-            id: "",
-            title: "",
-            host: {
-              name: host.name,
-            },
-          }}
+        <LinkButton
+          name="Contacter l’hôte"
+          link={`/messagerie`}
+          newTab={false}
+        />
+        <LinkButton
+          name="Envoyer un message"
+          link={`/messagerie`}
+          newTab={false}
         />
       </div>
     </div>
