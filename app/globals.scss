@@ -41,3 +41,9 @@ p {
     color-scheme: dark;
   }
 }
+
+@media (min-width: 769px) {
+  .navbar-wrapper.messaging-route {
+    display: none;
+  }
+}

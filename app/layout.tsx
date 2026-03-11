@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.scss";
 import { AuthProvider } from "./context/AuthContext";
 import { PropertiesProvider } from "./context/PropertiesContext";
-import Navbar from "./components/Navbar/Navbar";
+import LayoutShell from "./components/LayoutShell";
 
 export const metadata: Metadata = {
   title: "Kasa",
@@ -20,8 +20,7 @@ export default function RootLayout({
       <body>
         <AuthProvider>
           <PropertiesProvider>
-            <Navbar />
-            {children}
+            <LayoutShell>{children}</LayoutShell>
           </PropertiesProvider>
         </AuthProvider>
       </body>
