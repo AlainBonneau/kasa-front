@@ -30,13 +30,14 @@ export default function HostSection({
             {hostPicture ? hostPicture.name : ""}
           </div>
 
-          <label
-            htmlFor="hostPicture"
+          <button
+            type="button"
             className="upload-btn"
             aria-label="Ajouter une image de l'hôte"
+            onClick={() => document.getElementById("hostPicture")?.click()}
           >
             <Plus size={24} />
-          </label>
+          </button>
 
           <input
             type="file"

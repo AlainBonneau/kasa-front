@@ -20,13 +20,14 @@ export default function PropertyImagesSection({
             {coverPicture ? coverPicture.name : ""}
           </div>
 
-          <label
-            htmlFor="coverPicture"
+          <button
+            type="button"
             className="upload-btn"
             aria-label="Ajouter une image de couverture"
+            onClick={() => document.getElementById("coverPicture")?.click()}
           >
             <Plus size={24} />
-          </label>
+          </button>
 
           <input
             type="file"
@@ -44,7 +45,7 @@ export default function PropertyImagesSection({
 
       <div className="image-field">
         <label htmlFor="propertyPictures" className="field-label">
-          Image du logement
+          Images du logement
         </label>
 
         <div className="upload-row">
@@ -54,13 +55,14 @@ export default function PropertyImagesSection({
               : ""}
           </div>
 
-          <label
-            htmlFor="propertyPictures"
+          <button
+            type="button"
             className="upload-btn"
             aria-label="Ajouter des images du logement"
+            onClick={() => document.getElementById("propertyPictures")?.click()}
           >
             <Plus size={24} />
-          </label>
+          </button>
 
           <input
             type="file"
