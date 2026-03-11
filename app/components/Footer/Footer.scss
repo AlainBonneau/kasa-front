@@ -1,0 +1,21 @@
+.footer-container {
+  margin-top: 20px;
+  height: 70px;
+  background-color: var(--white);
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  p {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--dark-gray);
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 0 20px;
+  }
+}

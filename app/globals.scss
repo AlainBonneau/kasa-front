@@ -21,6 +21,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
