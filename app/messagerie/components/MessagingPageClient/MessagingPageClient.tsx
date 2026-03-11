@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { ArrowLeft, Send } from "lucide-react";
+import Link from "next/link";
 import "./MessagingPageClient.scss";
 
 type Message = {
@@ -131,10 +132,10 @@ export default function MessagingPageClient() {
     >
       <aside className="messaging-sidebar">
         <div className="messaging-sidebar-header">
-          <button type="button" className="back-button">
+          <Link href="/" className="back-button">
             <ArrowLeft size={16} />
             Retour
-          </button>
+          </Link>
           <h1>Messages</h1>
         </div>
 
@@ -179,10 +180,6 @@ export default function MessagingPageClient() {
             <ArrowLeft size={16} />
             Retour
           </button>
-
-          <span className="mobile-chat-title">
-            {selectedConversation?.userName ?? "Conversation"}
-          </span>
         </div>
 
         <div className="messaging-messages">
