@@ -214,13 +214,14 @@
 @media (max-width: 768px) {
   .messaging-layout {
     grid-template-columns: 1fr;
-    min-height: calc(100dvh - 85px);
+    height: auto;
   }
 
   .messaging-sidebar,
   .messaging-main {
     display: none;
-    min-height: calc(100dvh - 85px);
+    height: auto;
+    flex-direction: column;
   }
 
   .messaging-layout.mobile-show-list .messaging-sidebar {
@@ -231,6 +232,15 @@
     display: flex;
   }
 
+  // Ajustement de la barre de navigation et du footer pour la page de messagerie
+  .mobile-bar {
+    margin-bottom: 0;
+  }
+
+  .footer-container {
+    margin-top: 0;
+  }
+
   .messaging-mobile-topbar {
     display: flex;
     align-items: center;
@@ -238,7 +248,6 @@
     padding: 16px;
     border-bottom: 1px solid #ececec;
     background: #fff;
-    flex-shrink: 0;
   }
 
   .messaging-messages {
