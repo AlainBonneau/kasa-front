@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, Send, X } from "lucide-react";
 import "./ChatModal.scss";
 
@@ -68,8 +68,8 @@ const mockConversations: Conversation[] = [
   {
     id: 2,
     userName: "Utilisateur",
-    preview: "Bonjour, votre appartement est-il disponible...",
-    time: "11:04 am",
+    preview: "Bonjour, j’aimerais avoir plus d’informations...",
+    time: "10:12 am",
     unread: true,
     messages: [
       {
@@ -83,8 +83,8 @@ const mockConversations: Conversation[] = [
   {
     id: 3,
     userName: "Utilisateur",
-    preview: "Bonjour, votre appartement est-il disponible...",
-    time: "11:04 am",
+    preview: "Merci pour votre retour",
+    time: "09:41 am",
     unread: false,
     messages: [
       {
@@ -95,22 +95,6 @@ const mockConversations: Conversation[] = [
       },
     ],
   },
-  {
-    id: 4,
-    userName: "Utilisateur",
-    preview: "Bonjour, votre appartement est-il disponible...",
-    time: "11:04 am",
-    unread: false,
-    messages: [],
-  },
-  {
-    id: 5,
-    userName: "Utilisateur",
-    preview: "Bonjour, votre appartement est-il disponible...",
-    time: "11:04 am",
-    unread: false,
-    messages: [],
-  },
 ];
 
 export default function ChatModal({ isOpen, onClose }: ChatModalProps) {
@@ -120,9 +104,14 @@ export default function ChatModal({ isOpen, onClose }: ChatModalProps) {
     mockConversations[0].id,
   );
   const [newMessage, setNewMessage] = useState("");
+  const [mobileView, setMobileView] = useState<"list" | "chat">("list");
 
-  const selectedConversation = conversations.find(
-    (conversation) => conversation.id === selectedConversationId,
+  const selectedConversation = useMemo(
+    () =>
+      conversations.find(
+        (conversation) => conversation.id === selectedConversationId,
+      ),
+    [conversations, selectedConversationId],
   );
 
   useEffect(() => {
@@ -143,8 +132,16 @@ export default function ChatModal({ isOpen, onClose }: ChatModalProps) {
     };
   }, [isOpen, onClose]);
 
+  useEffect(() => {
+    if (isOpen) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setMobileView("list");
+    }
+  }, [isOpen]);
+
   function handleSelectConversation(conversationId: number) {
     setSelectedConversationId(conversationId);
+    setMobileView("chat");
 
     setConversations((prev) =>
       prev.map((conversation) =>
@@ -153,6 +150,10 @@ export default function ChatModal({ isOpen, onClose }: ChatModalProps) {
           : conversation,
       ),
     );
+  }
+
+  function handleBackToList() {
+    setMobileView("list");
   }
 
   function handleSendMessage() {
@@ -191,7 +192,9 @@ export default function ChatModal({ isOpen, onClose }: ChatModalProps) {
   return (
     <div className="chat-modal-overlay" onClick={onClose}>
       <div
-        className="chat-modal"
+        className={`chat-modal ${
+          mobileView === "list" ? "mobile-show-list" : "mobile-show-chat"
+        }`}
         onClick={(event) => event.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -247,6 +250,17 @@ export default function ChatModal({ isOpen, onClose }: ChatModalProps) {
         </aside>
 
         <section className="chat-main">
+          <div className="chat-mobile-topbar">
+            <button
+              type="button"
+              className="chat-mobile-back"
+              onClick={handleBackToList}
+            >
+              <ArrowLeft size={16} />
+              Retour
+            </button>
+          </div>
+
           <div className="chat-messages">
             {selectedConversation?.messages.length ? (
               <>
