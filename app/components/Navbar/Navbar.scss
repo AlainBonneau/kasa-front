@@ -84,11 +84,15 @@
   gap: 16px;
 }
 
-.navbar-icons a {
+.navbar-icons a,
+.navbar-icons button {
   color: var(--main-red);
   display: flex;
+  border: none;
+  background: transparent;
   align-items: center;
   transition: color 0.2s ease;
+  cursor: pointer;
 }
 
 /* ---------------- MOBILE ---------------- */
@@ -195,7 +199,18 @@
     text-decoration: none;
     color: var(--black);
     font-size: 1.5rem;
-    border-bottom: 1px solid #f5f5f5;
+    border-bottom: 1px solid var(--light-gray);
+  }
+
+  .mobile-links button {
+    padding: 18px 2px;
+    text-decoration: none;
+    color: var(--black);
+    font-size: 1.5rem;
+    border-bottom: 1px solid var(--light-gray);
+    background: transparent;
+    border: none;
+    text-align: left;
   }
 
   .mobile-cta {

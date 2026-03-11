@@ -4,10 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { Heart, MessageSquare, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import ChatModal from "../ChatModal/ChatModal";
 import "./Navbar.scss";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   // useEffect qui bloque le scroll du body lorsque le menu mobile est ouvert
   useEffect(() => {
@@ -46,9 +48,9 @@ export default function Navbar() {
             <Link href="/favorites" aria-label="Favoris">
               <Heart size={18} />
             </Link>
-            <Link href="/chat" aria-label="Messagerie">
+            <button aria-label="Messagerie" onClick={() => setIsChatOpen(true)}>
               <MessageSquare size={18} />
-            </Link>
+            </button>
           </div>
         </div>
       </nav>
@@ -112,9 +114,14 @@ export default function Navbar() {
             <Link href="/about" onClick={closeMenu}>
               À propos
             </Link>
-            <Link href="/chat" onClick={closeMenu}>
+            <button
+              onClick={() => {
+                closeMenu();
+                setIsChatOpen(true);
+              }}
+            >
               Messagerie
-            </Link>
+            </button>
             <Link href="/favorites" onClick={closeMenu}>
               Favoris
             </Link>
@@ -129,6 +136,7 @@ export default function Navbar() {
           </Link>
         </div>
       </nav>
+      <ChatModal isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </header>
   );
 }
