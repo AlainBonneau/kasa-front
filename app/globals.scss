@@ -53,7 +53,8 @@ p {
 }
 
 @media (min-width: 769px) {
-  .navbar-wrapper.messaging-route {
+  .layout-navbar.messaging-route,
+  .layout-footer.messaging-route {
     display: none;
   }
 }

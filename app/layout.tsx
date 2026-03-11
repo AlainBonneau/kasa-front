@@ -3,7 +3,6 @@ import "./globals.scss";
 import { AuthProvider } from "./context/AuthContext";
 import { PropertiesProvider } from "./context/PropertiesContext";
 import LayoutShell from "./components/LayoutShell";
-import Footer from "./components/Footer/Footer";
 
 export const metadata: Metadata = {
   title: "Kasa",
@@ -22,10 +21,7 @@ export default function RootLayout({
         <div className="layout">
           <AuthProvider>
             <PropertiesProvider>
-              <LayoutShell>
-                <main className="content">{children}</main>
-              </LayoutShell>
-              <Footer />
+              <LayoutShell>{children}</LayoutShell>
             </PropertiesProvider>
           </AuthProvider>
         </div>

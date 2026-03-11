@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Navbar from "@/app/components/Navbar/Navbar";
+import Footer from "@/app/components/Footer/Footer";
 
 export default function LayoutShell({
   children,
@@ -9,19 +10,27 @@ export default function LayoutShell({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-
   const isMessagingPage = pathname === "/messagerie";
 
   return (
     <>
       <div
         className={
-          isMessagingPage ? "navbar-wrapper messaging-route" : "navbar-wrapper"
+          isMessagingPage ? "layout-navbar messaging-route" : "layout-navbar"
         }
       >
         <Navbar />
       </div>
-      {children}
+
+      <main className="content">{children}</main>
+
+      <div
+        className={
+          isMessagingPage ? "layout-footer messaging-route" : "layout-footer"
+        }
+      >
+        <Footer />
+      </div>
     </>
   );
 }
