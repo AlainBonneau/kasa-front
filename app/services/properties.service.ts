@@ -1,29 +1,41 @@
 import { api } from "../api/axioxConfig";
-import type { Property } from "../types/property";
+import type { Property, CreatePropertyPayload } from "../types/property";
 
-export async function listProperties() {
+/**
+ * Récupère la liste des propriétés depuis l'API.
+ *
+ * @returns {Promise<Property[]>} La liste des propriétés récupérées.
+ * @throws {Error} Si la requête API échoue.
+ */
+export async function listProperties(): Promise<Property[]> {
   const response = await api.get<Property[]>("/api/properties");
   return response.data;
 }
 
-export async function getPropertyById(id: string) {
+/**
+ * Récupère les détails d'une propriété à partir de son identifiant.
+ *
+ * @param {string} id - L'identifiant de la propriété.
+ * @returns {Promise<Property>} La propriété correspondante.
+ * @throws {Error} Si la requête API échoue.
+ */
+export async function getPropertyById(id: string): Promise<Property> {
   const response = await api.get<Property>(`/api/properties/${id}`);
   return response.data;
 }
 
-export async function createProperty(propertyData: {
-  title: string;
-  description: string;
-  location: string;
-  price_per_night: number;
-  host_id: string | number;
-  cover: string | null;
-  pictures: string[];
-  equipments: string[];
-  tags: string[];
-}) {
+/**
+ * Crée une nouvelle propriété.
+ *
+ * @param {CreatePropertyPayload} propertyData - Les données de la propriété à créer.
+ * @returns {Promise<Property>} La propriété créée.
+ * @throws {Error} Si la requête API échoue.
+ */
+export async function createProperty(
+  propertyData: CreatePropertyPayload,
+): Promise<Property> {
   try {
-    const response = await api.post("/api/properties", propertyData);
+    const response = await api.post<Property>("/api/properties", propertyData);
     return response.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {

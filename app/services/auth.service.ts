@@ -5,6 +5,13 @@ import type {
   RegisterPayload,
 } from "../types/auth";
 
+/**
+ * Authentifie un utilisateur.
+ *
+ * @param {LoginPayload} payload - Les informations de connexion de l'utilisateur.
+ * @returns {Promise<AuthResponse>} Les données d'authentification retournées par l'API.
+ * @throws {Error} Si la requête API échoue.
+ */
 export async function loginService(
   payload: LoginPayload,
 ): Promise<AuthResponse> {
@@ -12,6 +19,13 @@ export async function loginService(
   return data;
 }
 
+/**
+ * Inscrit un nouvel utilisateur.
+ *
+ * @param {RegisterPayload} payload - Les informations nécessaires à l'inscription.
+ * @returns {Promise<AuthResponse>} Les données d'authentification retournées par l'API.
+ * @throws {Error} Si la requête API échoue.
+ */
 export async function registerService(
   payload: RegisterPayload,
 ): Promise<AuthResponse> {

@@ -18,3 +18,15 @@ export type Property = {
     picture: string;
   };
 };
+
+export type CreatePropertyPayload = {
+  title: string;
+  description: string;
+  location: string;
+  price_per_night: number;
+  host_id: string | number;
+  cover: string | null;
+  pictures: string[];
+  equipments: string[];
+  tags: string[];
+};

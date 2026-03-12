@@ -3,20 +3,16 @@
 import { useState, useEffect } from "react";
 import { useAuthContext } from "@/app/context/AuthContext";
 import Link from "next/link";
-import { getFavorites, removeFavorite } from "@/app/services/favorites.service";
+import {
+  getFavorites,
+  removeFavorite,
+  type Favorite,
+} from "@/app/services/favorites.service";
 import Image from "next/image";
 import Loader from "@/app/components/ui/Loader/Loader";
 import { getImageUrl } from "@/app/lib/utils/backend-picture";
 import { Heart } from "lucide-react";
 import "./FavoritesComponent.scss";
-
-type Favorite = {
-  id: string;
-  title: string;
-  location: string;
-  cover: string;
-  price_per_night: number;
-};
 
 export default function FavoritesComponent() {
   const { user, status } = useAuthContext();

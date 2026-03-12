@@ -1,0 +1,14 @@
+{
+  "entryPoints": [
+    "app/services/properties.service.ts",
+    "app/services/auth.service.ts",
+    "app/services/favorites.service.ts",
+    "app/services/upload.service.ts",
+    "app/lib/utils/backend-picture.ts",
+    "app/types/auth.d.ts",
+    "app/types/property.d.ts"
+  ],
+  "entryPointStrategy": "expand",
+  "out": "docs/typedoc",
+  "exclude": ["**/*.d.ts", "**/*.test.ts", "**/*.spec.ts"]
+}
