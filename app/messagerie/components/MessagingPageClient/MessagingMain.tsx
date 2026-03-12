@@ -57,6 +57,7 @@ export default function MessagingMain({
       <div className="messaging-input">
         <input
           type="text"
+          aria-label="Envoyer un message"
           placeholder="Envoyer un message"
           value={newMessage}
           onChange={(e) => onChangeMessage(e.target.value)}
