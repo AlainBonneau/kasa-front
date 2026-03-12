@@ -1,18 +1,18 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ArrowLeft, Send } from "lucide-react";
-import Link from "next/link";
+import MessagingSidebar from "./MessagingSidebar";
+import MessagingMain from "./MessagingMain";
 import "./MessagingPageClient.scss";
 
-type Message = {
+export type Message = {
   id: number;
   sender: "me" | "other";
   text: string;
   time: string;
 };
 
-type Conversation = {
+export type Conversation = {
   id: number;
   userName: string;
   preview: string;
@@ -55,6 +55,46 @@ const mockConversations: Conversation[] = [
         sender: "other",
         text: "Bonjour, j’aimerais avoir plus d’informations sur le logement.",
         time: "10:12am",
+      },
+    ],
+  },
+  {
+    id: 3,
+    userName: "Utilisateur",
+    preview: "Bonjour, est-ce que le logement est proche du centre-ville ?",
+    time: "9:45 am",
+    messages: [
+      {
+        id: 1,
+        sender: "other",
+        text: "Bonjour, est-ce que le logement est proche du centre-ville ?",
+        time: "9:45am",
+      },
+      {
+        id: 2,
+        sender: "me",
+        text: "Bonjour, oui il est à seulement 10 minutes en bus du centre-ville.",
+        time: "9:50am",
+      },
+    ],
+  },
+  {
+    id: 4,
+    userName: "Utilisateur",
+    preview: "Bonjour, est-ce que le logement dispose d’une connexion Wi-Fi ?",
+    time: "8:30 am",
+    messages: [
+      {
+        id: 1,
+        sender: "other",
+        text: "Bonjour, est-ce que le logement dispose d’une connexion Wi-Fi ?",
+        time: "8:30am",
+      },
+      {
+        id: 2,
+        sender: "me",
+        text: "Bonjour, oui le logement dispose d’une connexion Wi-Fi gratuite.",
+        time: "8:35am",
       },
     ],
   },
@@ -130,108 +170,19 @@ export default function MessagingPageClient() {
         mobileView === "list" ? "mobile-show-list" : "mobile-show-chat"
       }`}
     >
-      <aside className="messaging-sidebar">
-        <div className="messaging-sidebar-header">
-          <Link href="/" className="back-button">
-            <ArrowLeft size={16} />
-            Retour
-          </Link>
-          <h1>Messages</h1>
-        </div>
+      <MessagingSidebar
+        conversations={conversations}
+        selectedConversationId={selectedConversationId}
+        onSelectConversation={handleSelectConversation}
+      />
 
-        <div className="messaging-conversations">
-          {conversations.map((conversation) => (
-            <button
-              key={conversation.id}
-              className={`conversation-item ${
-                selectedConversationId === conversation.id ? "active" : ""
-              }`}
-              onClick={() => handleSelectConversation(conversation.id)}
-            >
-              <div className="avatar-placeholder" />
-
-              <div className="conversation-content">
-                <div className="conversation-top">
-                  <span className="conversation-name">
-                    {conversation.userName}
-                  </span>
-                  <span className="conversation-time">{conversation.time}</span>
-                </div>
-
-                <div className="conversation-bottom">
-                  <span className="conversation-preview">
-                    {conversation.preview}
-                  </span>
-                  {conversation.unread && <span className="unread-dot" />}
-                </div>
-              </div>
-            </button>
-          ))}
-        </div>
-      </aside>
-
-      <section className="messaging-main">
-        <div className="messaging-mobile-topbar">
-          <button
-            type="button"
-            className="back-button"
-            onClick={handleBackToList}
-          >
-            <ArrowLeft size={16} />
-            Retour
-          </button>
-        </div>
-
-        <div className="messaging-messages">
-          {selectedConversation?.messages.map((message) => (
-            <div
-              key={message.id}
-              className={`message-row ${message.sender === "me" ? "me" : "other"}`}
-            >
-              {message.sender === "other" && (
-                <div className="avatar-placeholder small" />
-              )}
-
-              <div className="message-content">
-                <div className="message-meta">
-                  <span>Utilisateur</span>
-                  <span>•</span>
-                  <span>{message.time}</span>
-                </div>
-
-                <div className={`message-bubble ${message.sender}`}>
-                  {message.text}
-                </div>
-              </div>
-
-              {message.sender === "me" && (
-                <div className="avatar-placeholder small" />
-              )}
-            </div>
-          ))}
-        </div>
-
-        <div className="messaging-input">
-          <input
-            type="text"
-            placeholder="Envoyer un message"
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSendMessage();
-              }
-            }}
-          />
-          <button
-            type="button"
-            onClick={handleSendMessage}
-            aria-label="Envoyer"
-          >
-            <Send size={16} />
-          </button>
-        </div>
-      </section>
+      <MessagingMain
+        selectedConversation={selectedConversation}
+        newMessage={newMessage}
+        onChangeMessage={setNewMessage}
+        onSendMessage={handleSendMessage}
+        onBackToList={handleBackToList}
+      />
     </div>
   );
 }
