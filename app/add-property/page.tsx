@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { useAuthContext } from "../context/AuthContext";
 import { createProperty } from "../services/properties.service";
@@ -12,10 +13,12 @@ import HostSection from "./components/HostSection/HostSection";
 import EquipmentSection from "./components/EquipmentSection/EquipmentSection";
 import CategoriesSection from "./components/CategoriesSection/CategoriesSection";
 import ProtectedRoute from "../components/ProtectedRoute";
+import toast from "react-hot-toast";
 import "./page.scss";
 
 export default function AddProperty() {
   const { user } = useAuthContext();
+  const router = useRouter();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -96,8 +99,11 @@ export default function AddProperty() {
       setEquipments([]);
       setCategories([]);
       setCustomCategories([]);
+      toast.success("Propriété créée avec succès !");
+      router.push("/");
     } catch (err) {
       console.error("Erreur lors de la création de la propriété :", err);
+      toast.error("Impossible de créer la propriété.");
       setError("Impossible de créer la propriété.");
     } finally {
       setIsSubmitting(false);
