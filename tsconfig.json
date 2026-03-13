@@ -3,6 +3,7 @@
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
+    "types": ["jest", "@testing-library/jest-dom", "node"],
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
@@ -29,6 +30,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-  ],
+, "jest.config.js", "jest.setup.js"  ],
   "exclude": ["node_modules"]
 }
