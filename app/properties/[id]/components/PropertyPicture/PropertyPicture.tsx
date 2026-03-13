@@ -26,8 +26,6 @@ export default function PropertyPicture({
     cover = pictures[0];
   }
 
-  console.log("PropertyPicture - pictures:", pictures);
-
   return (
     <div className="property-picture-container">
       <div className="picture-left">

@@ -22,7 +22,7 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      console.warn("Unauthorized - redirect login");
+      warn("Unauthorized - redirect login");
     }
     return Promise.reject(error);
   },

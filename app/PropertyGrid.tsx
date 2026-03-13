@@ -10,6 +10,7 @@ import { getImageUrl } from "./lib/utils/backend-picture";
 import Loader from "./components/ui/Loader/Loader";
 import { Heart } from "lucide-react";
 import type { Property } from "./types/property";
+import toast from "react-hot-toast";
 import "./PropertyGrid.scss";
 
 export default function PropertyGrid() {
@@ -24,8 +25,8 @@ export default function PropertyGrid() {
       try {
         const data = await listProperties();
         if (isMounted) setProperties(data);
-      } catch (error) {
-        console.error("Erreur lors de la récupération des propriétés:", error);
+      } catch {
+        toast.error("Erreur lors du chargement des propriétés.");
       } finally {
         if (isMounted) setIsLoading(false);
       }
@@ -50,7 +51,9 @@ export default function PropertyGrid() {
     e.stopPropagation();
 
     if (!user?.id) {
-      console.error("Utilisateur non authentifié");
+      toast.error(
+        "Vous devez être connecté pour ajouter une propriété aux favoris.",
+      );
       return;
     }
 

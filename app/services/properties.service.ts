@@ -39,8 +39,6 @@ export async function createProperty(
     return response.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    console.error("Create property status:", error?.response?.status);
-    console.error("Create property data:", error?.response?.data);
     throw error;
   }
 }

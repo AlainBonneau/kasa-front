@@ -83,8 +83,6 @@ export default function AddProperty() {
         tags: [...categories, ...customCategories],
       };
 
-      console.log("CREATE PROPERTY PAYLOAD:", payload);
-
       await createProperty(payload);
 
       setTitle("");
@@ -101,8 +99,7 @@ export default function AddProperty() {
       setCustomCategories([]);
       toast.success("Propriété créée avec succès !");
       router.push("/");
-    } catch (err) {
-      console.error("Erreur lors de la création de la propriété :", err);
+    } catch {
       toast.error("Impossible de créer la propriété.");
       setError("Impossible de créer la propriété.");
     } finally {

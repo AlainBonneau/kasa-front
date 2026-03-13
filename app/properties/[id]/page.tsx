@@ -18,7 +18,8 @@ export default async function PropertyDetailPage({
   try {
     property = await getPropertyById(id);
   } catch (error) {
-    console.error("Erreur lors de la récupération :", error);
+    console.error("Erreur lors de la récupération du logement :", error);
+    throw error;
   }
 
   if (!property) {

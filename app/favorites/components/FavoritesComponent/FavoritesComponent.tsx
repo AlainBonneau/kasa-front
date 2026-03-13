@@ -31,7 +31,7 @@ export default function FavoritesComponent() {
         const data = await getFavorites(userId);
         if (isMounted) setFavorites(data);
       } catch (e) {
-        console.error(e);
+        throw e;
       } finally {
         if (isMounted) setIsLoading(false);
       }
