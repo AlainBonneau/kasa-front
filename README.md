@@ -3,7 +3,7 @@
 Le frontend de **Kasa** est une application web développée avec **Next.js et React** dans le cadre du projet OpenClassrooms.  
 L'objectif est de proposer une plateforme moderne permettant de **consulter, réserver et gérer des logements** tout en offrant une **expérience utilisateur rapide, accessible et responsive**.
 
-L'application consomme une **API REST fournie** qui gère les données liées aux utilisateurs, aux propriétés et aux interactions (favoris, messagerie, etc.).
+L'application consomme une **API REST fournie** qui gère les données liées aux utilisateurs, aux propriétés et aux interactions (affichage des propriétés, gestion des favories, etc.).
 
 ---
 
@@ -30,10 +30,9 @@ Le projet suit une architecture modulaire basée sur les principes suivants :
   - Cartes de propriétés avec image, titre et prix
 
 - **Détail d’une propriété**
-  - Galerie d’images avec **carousel accessible**
+  - Galerie d’images avec **carousel accessible** sur mobile
   - Informations sur le logement
   - Présentation de l’hôte
-  - Système de collapses pour les descriptions
   - Bouton pour contacter l’hôte
 
 - **Authentification**
@@ -43,10 +42,9 @@ Le projet suit une architecture modulaire basée sur les principes suivants :
 
 - **Favoris**
   - Sauvegarde des propriétés favorites
-  - Persistance via **LocalStorage**
 
 - **Messagerie**
-  - Interface de conversation entre utilisateurs
+  - Interface de conversation entre utilisateurs (Statique pour le moment)
 
 - **Ajout de propriété**
   - Formulaire permettant aux propriétaires de publier un logement
