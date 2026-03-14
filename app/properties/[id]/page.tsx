@@ -19,11 +19,11 @@ export default async function PropertyDetailPage({
     property = await getPropertyById(id);
   } catch (error) {
     console.error("Erreur lors de la récupération du logement :", error);
-    throw error;
+    property = null;
   }
 
   if (!property) {
-    return <p>Logement introuvable</p>;
+    return <p className="no-property">Logement introuvable</p>;
   }
 
   return (

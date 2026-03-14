@@ -37,6 +37,13 @@
   gap: 10px;
 }
 
+.no-property {
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--dark-gray);
+  margin-top: 50px;
+}
+
 @media (max-width: 768px) {
   .property-detail-page-container {
     width: 95%;
