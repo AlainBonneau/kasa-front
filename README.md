@@ -1,36 +1,128 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## 🏡 Kasa - Frontend
 
-## Getting Started
+Le frontend de **Kasa** est une application web développée avec **Next.js et React** dans le cadre du projet OpenClassrooms.  
+L'objectif est de proposer une plateforme moderne permettant de **consulter, réserver et gérer des logements** tout en offrant une **expérience utilisateur rapide, accessible et responsive**.
 
-First, run the development server:
+L'application consomme une **API REST fournie** qui gère les données liées aux utilisateurs, aux propriétés et aux interactions (favoris, messagerie, etc.).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ⚙️ Technologies utilisées
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Next.js (App Router)** – Framework React optimisé pour les performances et le SEO
+- **React** – Création de composants UI réutilisables
+- **TypeScript** – Typage statique pour améliorer la robustesse du code
+- **SCSS / CSS Modules** – Organisation et modularité du style
+- **Lucide React** – Bibliothèque d’icônes modernes
+- **Next/Image** – Optimisation automatique des images
+- **Context API** – Gestion de l’état global (authentification, favoris)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🧱 Architecture du frontend
 
-To learn more about Next.js, take a look at the following resources:
+Le projet suit une architecture modulaire basée sur les principes suivants :
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Pages principales
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Accueil**
+  - Affichage des logements disponibles
+  - Cartes de propriétés avec image, titre et prix
 
-## Deploy on Vercel
+- **Détail d’une propriété**
+  - Galerie d’images avec **carousel accessible**
+  - Informations sur le logement
+  - Présentation de l’hôte
+  - Système de collapses pour les descriptions
+  - Bouton pour contacter l’hôte
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Authentification**
+  - Connexion utilisateur
+  - Gestion du token d’authentification
+  - Redirection automatique si l’utilisateur est déjà connecté
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Favoris**
+  - Sauvegarde des propriétés favorites
+  - Persistance via **LocalStorage**
+
+- **Messagerie**
+  - Interface de conversation entre utilisateurs
+
+- **Ajout de propriété**
+  - Formulaire permettant aux propriétaires de publier un logement
+
+---
+
+## 🧩 Composants principaux
+
+L’interface est construite avec des **composants réutilisables** :
+
+- `Navbar` – Navigation principale
+- `PropertyGrid` – Liste des propriétés
+- `PropertyCard` – Carte individuelle d’un logement
+- `Loader` – Indicateur de chargement
+- `LinkButton` – Bouton de navigation stylisé
+
+Cette approche permet de **maintenir un code clair, modulaire et facilement maintenable**.
+
+---
+
+## 🔐 Gestion de l’authentification
+
+L’authentification est gérée via :
+
+- **JWT (JSON Web Token)**
+- **Context API React** pour partager l’état utilisateur
+- Stockage sécurisé du token côté client
+
+Cela permet :
+
+- d’identifier l’utilisateur connecté
+- de protéger certaines fonctionnalités
+- d’adapter l’interface selon le rôle utilisateur.
+
+---
+
+## 🚀 Performance et bonnes pratiques
+
+Plusieurs optimisations sont mises en place :
+
+- **Next/Image** pour le lazy loading et l’optimisation des images
+- **Composants client/server** avec Next.js App Router
+- **Code splitting automatique**
+- Respect des bonnes pratiques **SEO**
+- Respect des règles **WCAG 2.1 (accessibilité)**
+
+---
+
+## 📱 Responsive Design
+
+L’interface est entièrement **responsive** et s’adapte à différents formats d’écran :
+
+- Desktop
+- Tablette
+- Mobile
+
+Les composants sont conçus pour garantir une **expérience fluide et accessible sur tous les appareils**.
+
+---
+
+## 🎯 Objectifs du projet
+
+Ce projet met en pratique plusieurs compétences essentielles du développement frontend moderne :
+
+- Architecture d’application React
+- Consommation d’API REST
+- Gestion d’état globale
+- Accessibilité et SEO
+- Optimisation des performances
+- Développement d’interfaces modulaires et maintenables
+
+---
+
+## 👨‍💻 Auteur
+
+Projet réalisé dans le cadre de la formation  
+**Développeur concepteur d'application (RNCP niveau 6)** chez **OpenClassrooms**.
+
+Développé par **Alain Bonneau**.
