@@ -120,11 +120,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          <Link
-            href="/create-property"
-            className="mobile-cta"
-            onClick={closeMenu}
-          >
+          <Link href="/add-property" className="mobile-cta" onClick={closeMenu}>
             Ajouter un logement
           </Link>
         </div>
