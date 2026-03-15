@@ -1,7 +1,7 @@
 import Image from "next/image";
 import "./PropertyPicture.scss";
 
-const BACKEND_URL = "http://localhost:8000";
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 const FALLBACK_IMAGE =
   "https://rightathomerealtyinc.com/image/PropertyPhoto/housedefault.png";
 
