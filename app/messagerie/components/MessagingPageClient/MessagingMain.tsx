@@ -32,7 +32,7 @@ export default function MessagingMain({
             className={`message-row ${message.sender === "me" ? "me" : "other"}`}
           >
             {message.sender === "other" && (
-              <div className="avatar-placeholder small" />
+              <div className="avatar-placeholder dark small" />
             )}
 
             <div className="message-content">
@@ -48,28 +48,33 @@ export default function MessagingMain({
             </div>
 
             {message.sender === "me" && (
-              <div className="avatar-placeholder small" />
+              <div className="avatar-placeholder dark small" />
             )}
           </div>
         ))}
       </div>
 
       <div className="messaging-input">
-        <input
-          type="text"
-          aria-label="Envoyer un message"
-          placeholder="Envoyer un message"
-          value={newMessage}
-          onChange={(e) => onChangeMessage(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              onSendMessage();
-            }
-          }}
-        />
-        <button type="button" onClick={onSendMessage} aria-label="Envoyer">
-          <Send size={16} />
-        </button>
+        <div className="input-wrapper">
+          <textarea
+            id="send-message-input"
+            aria-label="Envoyer un message"
+            placeholder="Envoyer un message"
+            value={newMessage}
+            onChange={(e) => onChangeMessage(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                onSendMessage();
+              }
+            }}
+            rows={4}
+          />
+
+          <button type="button" onClick={onSendMessage} aria-label="Envoyer">
+            <Send size={16} />
+          </button>
+        </div>
       </div>
     </section>
   );
