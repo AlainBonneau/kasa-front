@@ -23,5 +23,5 @@ export type RegisterPayload = {
   email: string;
   password: string;
   picture?: string | null;
-  role?: "owner" | "client";
+  role?: "owner" | "client" | "admin";
 };

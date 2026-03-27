@@ -65,7 +65,13 @@ export async function createPropertyService(
   }
 }
 
-export async function deleteProperty(id: string): Promise<void> {
+/**
+ * Supprime une propriété à partir de son identifiant.
+ * @param {string} id - L'identifiant de la propriété à supprimer.
+ * @returns {Promise<void>} Une promesse qui se résout lorsque la propriété est supprimée.
+ * @throws {Error} Si la requête API échoue.
+ */
+export async function deletePropertyService(id: string): Promise<void> {
   try {
     await api.delete(`/api/properties/${id}`);
   } catch (error: unknown) {

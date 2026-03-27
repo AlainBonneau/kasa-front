@@ -8,10 +8,12 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import { useRouter } from "next/navigation";
 import {
   listProperties,
   getPropertyById,
   createPropertyService,
+  deletePropertyService,
 } from "../services/properties.service";
 import type { Property, CreatePropertyPayload } from "../types/property";
 
@@ -22,6 +24,7 @@ type PropertiesContextValue = {
   refresh: () => Promise<void>;
   getPropertyById: (id: string) => Promise<Property | null>;
   createProperty: (propertyData: CreatePropertyPayload) => Promise<Property>;
+  deleteProperty: (id: string) => Promise<void>;
 };
 
 const PropertiesContext = createContext<PropertiesContextValue | null>(null);
@@ -31,10 +34,12 @@ export function PropertiesProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Récupère les propriétés au chargement du composant
   const refresh = useCallback(async () => {
     try {
       setError(null);
@@ -52,6 +57,7 @@ export function PropertiesProvider({
     }
   }, []);
 
+  // Créer une nouvelle propriété
   const createProperty = useCallback(
     async (propertyData: CreatePropertyPayload): Promise<Property> => {
       try {
@@ -62,6 +68,23 @@ export function PropertiesProvider({
         throw new Error(
           (e as { response?: { data?: { message?: string } } })?.response?.data
             ?.message || "Impossible de créer le logement",
+        );
+      }
+    },
+    [refresh],
+  );
+
+  // Supprimer une propriété
+  const deleteProperty = useCallback(
+    async (id: string): Promise<void> => {
+      try {
+        await deletePropertyService(id);
+        router.push("/");
+        await refresh();
+      } catch (e: unknown) {
+        throw new Error(
+          (e as { response?: { data?: { message?: string } } })?.response?.data
+            ?.message || "Impossible de supprimer le logement",
         );
       }
     },
@@ -80,8 +103,9 @@ export function PropertiesProvider({
       refresh,
       getPropertyById,
       createProperty,
+      deleteProperty,
     }),
-    [properties, loading, error, refresh, createProperty],
+    [properties, loading, error, refresh, createProperty, deleteProperty],
   );
 
   return (
