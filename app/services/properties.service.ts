@@ -8,8 +8,17 @@ import type { Property, CreatePropertyPayload } from "../types/property";
  * @throws {Error} Si la requête API échoue.
  */
 export async function listProperties(): Promise<Property[]> {
-  const response = await api.get<Property[]>("/api/properties");
-  return response.data;
+  try {
+    const response = await api.get<Property[]>("/api/properties");
+    return response.data;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error(
+      "Une erreur inconnue est survenue lors de la récupération des propriétés.",
+    );
+  }
 }
 
 /**
@@ -20,8 +29,17 @@ export async function listProperties(): Promise<Property[]> {
  * @throws {Error} Si la requête API échoue.
  */
 export async function getPropertyById(id: string): Promise<Property> {
-  const response = await api.get<Property>(`/api/properties/${id}`);
-  return response.data;
+  try {
+    const response = await api.get<Property>(`/api/properties/${id}`);
+    return response.data;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error(
+      "Une erreur inconnue est survenue lors de la récupération de la propriété.",
+    );
+  }
 }
 
 /**
@@ -31,14 +49,31 @@ export async function getPropertyById(id: string): Promise<Property> {
  * @returns {Promise<Property>} La propriété créée.
  * @throws {Error} Si la requête API échoue.
  */
-export async function createProperty(
+export async function createPropertyService(
   propertyData: CreatePropertyPayload,
 ): Promise<Property> {
   try {
     const response = await api.post<Property>("/api/properties", propertyData);
     return response.data;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    throw error;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error(
+      "Une erreur inconnue est survenue lors de la création de la propriété.",
+    );
+  }
+}
+
+export async function deleteProperty(id: string): Promise<void> {
+  try {
+    await api.delete(`/api/properties/${id}`);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error(
+      "Une erreur inconnue est survenue lors de la suppression de la propriété.",
+    );
   }
 }

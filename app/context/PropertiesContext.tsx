@@ -2,6 +2,7 @@
 
 import React, {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -10,8 +11,9 @@ import React, {
 import {
   listProperties,
   getPropertyById,
+  createPropertyService,
 } from "../services/properties.service";
-import type { Property } from "../types/property";
+import type { Property, CreatePropertyPayload } from "../types/property";
 
 type PropertiesContextValue = {
   properties: Property[];
@@ -19,6 +21,7 @@ type PropertiesContextValue = {
   error: string | null;
   refresh: () => Promise<void>;
   getPropertyById: (id: string) => Promise<Property | null>;
+  createProperty: (propertyData: CreatePropertyPayload) => Promise<Property>;
 };
 
 const PropertiesContext = createContext<PropertiesContextValue | null>(null);
@@ -32,29 +35,53 @@ export function PropertiesProvider({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  async function refresh() {
+  const refresh = useCallback(async () => {
     try {
       setError(null);
       setLoading(true);
+
       const data = await listProperties();
       setProperties(data);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (e: any) {
+    } catch (e: unknown) {
       setError(
-        e?.response?.data?.message || "Impossible de charger les logements",
+        (e as { response?: { data?: { message?: string } } })?.response?.data
+          ?.message || "Impossible de charger les logements",
       );
     } finally {
       setLoading(false);
     }
-  }
+  }, []);
+
+  const createProperty = useCallback(
+    async (propertyData: CreatePropertyPayload): Promise<Property> => {
+      try {
+        const newProperty = await createPropertyService(propertyData);
+        await refresh();
+        return newProperty;
+      } catch (e: unknown) {
+        throw new Error(
+          (e as { response?: { data?: { message?: string } } })?.response?.data
+            ?.message || "Impossible de créer le logement",
+        );
+      }
+    },
+    [refresh],
+  );
 
   useEffect(() => {
     refresh();
-  }, []);
+  }, [refresh]);
 
   const value = useMemo(
-    () => ({ properties, loading, error, refresh, getPropertyById }),
-    [properties, loading, error],
+    () => ({
+      properties,
+      loading,
+      error,
+      refresh,
+      getPropertyById,
+      createProperty,
+    }),
+    [properties, loading, error, refresh, createProperty],
   );
 
   return (
@@ -64,9 +91,14 @@ export function PropertiesProvider({
   );
 }
 
-export function useProperties() {
+export function usePropertiesContext() {
   const ctx = useContext(PropertiesContext);
-  if (!ctx)
-    throw new Error("useProperties must be used within PropertiesProvider");
+
+  if (!ctx) {
+    throw new Error(
+      "usePropertiesContext must be used within PropertiesProvider",
+    );
+  }
+
   return ctx;
 }

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { useAuthContext } from "../context/AuthContext";
-import { createProperty } from "../services/properties.service";
+import { usePropertiesContext } from "../context/PropertiesContext";
 import { uploadImage } from "../services/upload.service";
 import PropertyInfoSection from "./components/PropertyInfoSection/PropertyInfoSection";
 import PropertyImagesSection from "./components/PropertyImagesSection/PropertyImagesSection";
@@ -18,6 +18,7 @@ import "./page.scss";
 
 export default function AddProperty() {
   const { user } = useAuthContext();
+  const { createProperty } = usePropertiesContext();
   const router = useRouter();
 
   const [title, setTitle] = useState("");
