@@ -7,9 +7,13 @@ import "./PropertyDelete.scss";
 
 export default function PropertyDelete({ id }: { id: string }) {
   const { deleteProperty } = usePropertiesContext();
-  const { role } = useAuthContext();
+  const { user, status } = useAuthContext();
 
-  if (role !== "owner") {
+  if (status === "loading") {
+    return null;
+  }
+
+  if (user?.role !== "owner") {
     return null;
   }
   const handleDelete = async () => {

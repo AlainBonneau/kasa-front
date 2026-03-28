@@ -35,7 +35,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [token, setTokenState] = useState<string | null>(null);
   const [status, setStatus] = useState<AuthStatus>("loading");
-  const [role, setRole] = useState<"owner" | "client" | "admin" | null>(null);
 
   useEffect(() => {
     const t = getToken();
@@ -74,7 +73,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setTokenState(token);
     setUser(user);
     setStatus("authenticated");
-    setRole(user.role);
   }
 
   async function register(args: {
@@ -89,16 +87,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setTokenState(token);
     setUser(user);
     setStatus("authenticated");
-    setRole(user.role);
   }
 
   function logout() {
     clearToken();
     setTokenState(null);
     setUser(null);
-    setRole(null);
     setStatus("guest");
   }
+
+  const role = user?.role ?? null;
 
   const value = useMemo(
     () => ({ user, token, status, login, register, logout, role }),

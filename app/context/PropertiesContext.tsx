@@ -88,7 +88,7 @@ export function PropertiesProvider({
         );
       }
     },
-    [refresh],
+    [refresh, router],
   );
 
   useEffect(() => {
