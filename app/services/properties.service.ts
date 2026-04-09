@@ -1,5 +1,9 @@
 import { api } from "../api/axioxConfig";
-import type { Property, CreatePropertyPayload } from "../types/property";
+import type {
+  Property,
+  CreatePropertyPayload,
+  UpdatePropertyPayload,
+} from "../types/property";
 
 /**
  * Récupère la liste des propriétés depuis l'API.
@@ -61,6 +65,26 @@ export async function createPropertyService(
     }
     throw new Error(
       "Une erreur inconnue est survenue lors de la création de la propriété.",
+    );
+  }
+}
+
+export async function updatePropertyService(
+  id: string,
+  propertyData: Partial<UpdatePropertyPayload>,
+): Promise<Property> {
+  try {
+    const response = await api.patch<Property>(
+      `/api/properties/${id}`,
+      propertyData,
+    );
+    return response.data;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error(
+      "Une erreur inconnue est survenue lors de la mise à jour de la propriété.",
     );
   }
 }

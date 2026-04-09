@@ -13,6 +13,7 @@ import {
   listProperties,
   getPropertyById,
   createPropertyService,
+  updatePropertyService,
   deletePropertyService,
 } from "../services/properties.service";
 import type { Property, CreatePropertyPayload } from "../types/property";
@@ -24,6 +25,10 @@ type PropertiesContextValue = {
   refresh: () => Promise<void>;
   getPropertyById: (id: string) => Promise<Property | null>;
   createProperty: (propertyData: CreatePropertyPayload) => Promise<Property>;
+  updateProperty: (
+    id: string,
+    propertyData: CreatePropertyPayload,
+  ) => Promise<Property>;
   deleteProperty: (id: string) => Promise<void>;
 };
 
@@ -74,6 +79,26 @@ export function PropertiesProvider({
     [refresh],
   );
 
+  // Mettre à jour une propriété
+  const updateProperty = useCallback(
+    async (
+      id: string,
+      propertyData: CreatePropertyPayload,
+    ): Promise<Property> => {
+      try {
+        const updatedProperty = await updatePropertyService(id, propertyData);
+        await refresh();
+        return updatedProperty;
+      } catch (e: unknown) {
+        throw new Error(
+          (e as { response?: { data?: { message?: string } } })?.response?.data
+            ?.message || "Impossible de mettre à jour le logement",
+        );
+      }
+    },
+    [refresh],
+  );
+
   // Supprimer une propriété
   const deleteProperty = useCallback(
     async (id: string): Promise<void> => {
@@ -103,9 +128,18 @@ export function PropertiesProvider({
       refresh,
       getPropertyById,
       createProperty,
+      updateProperty,
       deleteProperty,
     }),
-    [properties, loading, error, refresh, createProperty, deleteProperty],
+    [
+      properties,
+      loading,
+      error,
+      refresh,
+      createProperty,
+      updateProperty,
+      deleteProperty,
+    ],
   );
 
   return (

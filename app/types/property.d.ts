@@ -30,3 +30,12 @@ export type CreatePropertyPayload = {
   equipments: string[];
   tags: string[];
 };
+
+export type UpdatePropertyPayload = {
+  title: string;
+  description: string;
+  cover: string | null;
+  location: string;
+  host_id: string | number;
+  price_per_night: number;
+};
