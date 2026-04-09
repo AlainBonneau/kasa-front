@@ -1,0 +1,25 @@
+.property-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+
+  .edit-btn {
+    border: none;
+    background: #ff6060;
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+      opacity: 0.95;
+    }
+  }
+}

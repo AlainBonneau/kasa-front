@@ -1,0 +1,145 @@
+.property-edit-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 1000;
+}
+
+.property-edit-modal {
+  width: 100%;
+  max-width: 680px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+
+    h2 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 700;
+      color: #1f1f1f;
+    }
+  }
+
+  &__close {
+    border: none;
+    background: #f5f5f5;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #222;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid #dcdcdc;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 15px;
+
+      &:focus {
+        outline: none;
+        border-color: #ff6060;
+        box-shadow: 0 0 0 3px rgba(255, 96, 96, 0.12);
+      }
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+  }
+
+  &__error {
+    margin: 0;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: #fff1f1;
+    color: #c62828;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .cancel-btn {
+      background: #f3f3f3;
+      color: #222;
+    }
+
+    .save-btn {
+      background: #ff6060;
+      color: #fff;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .property-edit-modal-overlay {
+    padding: 16px;
+  }
+
+  .property-edit-modal {
+    padding: 18px;
+    border-radius: 16px;
+
+    &__header h2 {
+      font-size: 22px;
+    }
+
+    &__actions {
+      flex-direction: column;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

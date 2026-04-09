@@ -2,7 +2,7 @@ import { getPropertyById } from "@/app/services/properties.service";
 import PropertyPicture from "./components/PropertyPicture/PropertyPicture";
 import PropertyDescription from "./components/PropertyDescription/PropertyDescription";
 import PropertyHost from "./components/PropertyHost/PropertyHost";
-import PropertyDelete from "./components/PropertyDelete/PropertyDelete";
+import PropertyActions from "./components/PropertyActions/PropertyActions";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import "./page.scss";
@@ -39,9 +39,7 @@ export default async function PropertyDetailPage({
             cover={property.cover}
             pictures={property.pictures}
           />
-          <div className="edit-delete-container">
-            <PropertyDelete id={id} />
-          </div>
+          <PropertyActions property={property} />
           <PropertyDescription property={property} />
         </div>
 
