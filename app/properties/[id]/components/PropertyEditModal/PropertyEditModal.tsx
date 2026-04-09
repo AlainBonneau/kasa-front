@@ -43,7 +43,13 @@ export default function PropertyEditModal({
     setError(null);
   }, [isOpen, property]);
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleClickEscape(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (e.key === "Escape") {
+      onClose();
+    }
+  }
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (!title.trim()) {
@@ -89,7 +95,13 @@ export default function PropertyEditModal({
   if (!isOpen) return null;
 
   return (
-    <div className="property-edit-modal-overlay" onClick={onClose}>
+    <div
+      className="property-edit-modal-overlay"
+      onClick={onClose}
+      role="presentation"
+      onKeyDown={handleClickEscape}
+      tabIndex={-1}
+    >
       <div
         className="property-edit-modal"
         onClick={(e) => e.stopPropagation()}
