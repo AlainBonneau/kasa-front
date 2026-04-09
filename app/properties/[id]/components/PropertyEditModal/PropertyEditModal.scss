@@ -36,7 +36,8 @@
 
   &__close {
     border: none;
-    background: #f5f5f5;
+    background-color: var(--main-red);
+    color: #fff;
     width: 40px;
     height: 40px;
     border-radius: 10px;
@@ -73,7 +74,7 @@
 
       &:focus {
         outline: none;
-        border-color: #ff6060;
+        border-color: var(--main-red);
         box-shadow: 0 0 0 3px rgba(255, 96, 96, 0.12);
       }
     }
@@ -115,7 +116,7 @@
     }
 
     .save-btn {
-      background: #ff6060;
+      background-color: var(--main-red);
       color: #fff;
     }
   }

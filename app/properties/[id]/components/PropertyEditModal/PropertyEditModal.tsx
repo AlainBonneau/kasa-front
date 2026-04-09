@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { X } from "lucide-react";
 import { usePropertiesContext } from "@/app/context/PropertiesContext";
 import type { Property } from "@/app/types/property";
@@ -18,6 +19,7 @@ export default function PropertyEditModal({
   onClose,
 }: PropertyEditModalProps) {
   const { updateProperty } = usePropertiesContext();
+  const router = useRouter();
 
   const [title, setTitle] = useState(property.title);
   const [description, setDescription] = useState(property.description);
@@ -75,6 +77,7 @@ export default function PropertyEditModal({
         tags: [],
       });
 
+      router.refresh();
       onClose();
     } catch {
       setError("Impossible de modifier la propriété.");
