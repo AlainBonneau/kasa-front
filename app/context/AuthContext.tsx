@@ -9,7 +9,11 @@ import React, {
   useCallback,
 } from "react";
 import { decodeJwtPayload, isJwtExpired } from "../lib/utils/auth/jwt";
-import { clearToken, getToken, setToken } from "../lib/utils/auth/token";
+import {
+  clearToken,
+  getToken,
+  setToken as persistToken,
+} from "../lib/utils/auth/token";
 import {
   getUserProfileService,
   loginService,
@@ -42,6 +46,40 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setTokenState] = useState<string | null>(null);
   const [status, setStatus] = useState<AuthStatus>("loading");
 
+  const logout = useCallback(() => {
+    clearToken();
+    setTokenState(null);
+    setUser(null);
+    setStatus("guest");
+  }, []);
+
+  const getUserProfile = useCallback(async () => {
+    const currentToken = getToken();
+
+    if (!currentToken) {
+      logout();
+      return;
+    }
+
+    const payload = decodeJwtPayload(currentToken);
+
+    if (!payload || isJwtExpired(payload)) {
+      logout();
+      return;
+    }
+
+    setStatus("loading");
+
+    try {
+      const profile = await getUserProfileService({ id: payload.id });
+      setUser(profile);
+      setStatus("authenticated");
+    } catch (error) {
+      console.error("Failed to fetch user profile:", error);
+      logout();
+    }
+  }, [logout]);
+
   useEffect(() => {
     const t = getToken();
 
@@ -54,10 +92,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const payload = decodeJwtPayload(t);
 
     if (!payload || isJwtExpired(payload)) {
-      clearToken();
-      setTokenState(null);
-      setUser(null);
-      setStatus("guest");
+      logout();
       return;
     }
 
@@ -70,19 +105,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       role: payload.role,
     });
     setStatus("authenticated");
-  }, []);
+  }, [logout]);
 
-  const login = useCallback(
-    async (email: string, password: string) => {
-      setStatus("loading");
+  const login = useCallback(async (email: string, password: string) => {
+    setStatus("loading");
+
+    try {
       const { token, user } = await loginService({ email, password });
-      setToken(token);
+      persistToken(token);
       setTokenState(token);
       setUser(user);
       setStatus("authenticated");
-    },
-    [setTokenState, setUser],
-  );
+    } catch (error) {
+      setTokenState(null);
+      setUser(null);
+      setStatus("guest");
+      throw error;
+    }
+  }, []);
 
   const register = useCallback(
     async (args: {
@@ -92,34 +132,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       role?: "owner" | "client" | "admin";
     }) => {
       setStatus("loading");
-      const { token, user } = await registerService(args);
-      setToken(token);
-      setTokenState(token);
-      setUser(user);
-      setStatus("authenticated");
+
+      try {
+        const { token, user } = await registerService(args);
+        persistToken(token);
+        setTokenState(token);
+        setUser(user);
+        setStatus("authenticated");
+      } catch (error) {
+        setTokenState(null);
+        setUser(null);
+        setStatus("guest");
+        throw error;
+      }
     },
-    [setTokenState, setUser],
+    [],
   );
-
-  const getUserProfile = useCallback(async () => {
-    if (!user) return;
-    setStatus("loading");
-    try {
-      const profile = await getUserProfileService(user);
-      setUser(profile);
-      setStatus("authenticated");
-    } catch (error) {
-      console.error("Failed to fetch user profile:", error);
-      setStatus("guest");
-    }
-  }, [user]);
-
-  const logout = useCallback(() => {
-    clearToken();
-    setTokenState(null);
-    setUser(null);
-    setStatus("guest");
-  }, [setTokenState, setUser]);
 
   const role = user?.role ?? null;
 
@@ -134,7 +162,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       getUserProfile,
       role,
     }),
-    [user, token, status, role, login, register, logout, getUserProfile],
+    [user, token, status, login, register, logout, getUserProfile, role],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
@@ -142,6 +170,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 export function useAuthContext() {
   const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error("useAuthContext must be used within AuthProvider");
+  if (!ctx) {
+    throw new Error("useAuthContext must be used within AuthProvider");
+  }
   return ctx;
 }

@@ -34,7 +34,17 @@ export async function registerService(
   return data;
 }
 
-export async function getUserProfileService(user: { id: number }): Promise<AuthUser> {
+/**
+ * Récupère le profil d'un utilisateur.
+ *
+ * @param {Object} user - Les informations de l'utilisateur.
+ * @param {number} user.id - L'ID de l'utilisateur.
+ * @returns {Promise<AuthUser>} Les données du profil de l'utilisateur retournées par l'API.
+ * @throws {Error} Si la requête API échoue.
+ */
+export async function getUserProfileService(user: {
+  id: number;
+}): Promise<AuthUser> {
   const { data } = await api.get<AuthUser>(`/api/users/${user.id}`);
   return data;
 }
