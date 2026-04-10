@@ -6,11 +6,16 @@ import React, {
   useEffect,
   useMemo,
   useState,
+  useCallback,
 } from "react";
-import type { AuthUser } from "../types/auth";
 import { decodeJwtPayload, isJwtExpired } from "../lib/utils/auth/jwt";
 import { clearToken, getToken, setToken } from "../lib/utils/auth/token";
-import { loginService, registerService } from "../services/auth.service";
+import {
+  getUserProfileService,
+  loginService,
+  registerService,
+} from "../services/auth.service";
+import type { AuthUser } from "../types/auth";
 
 type AuthStatus = "loading" | "authenticated" | "guest";
 
@@ -26,6 +31,7 @@ type AuthContextValue = {
     password: string;
     role?: "owner" | "client" | "admin";
   }) => Promise<void>;
+  getUserProfile: () => Promise<void>;
   logout: () => void;
 };
 
@@ -66,41 +72,69 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setStatus("authenticated");
   }, []);
 
-  async function login(email: string, password: string) {
-    setStatus("loading");
-    const { token, user } = await loginService({ email, password });
-    setToken(token);
-    setTokenState(token);
-    setUser(user);
-    setStatus("authenticated");
-  }
+  const login = useCallback(
+    async (email: string, password: string) => {
+      setStatus("loading");
+      const { token, user } = await loginService({ email, password });
+      setToken(token);
+      setTokenState(token);
+      setUser(user);
+      setStatus("authenticated");
+    },
+    [setTokenState, setUser],
+  );
 
-  async function register(args: {
-    name: string;
-    email: string;
-    password: string;
-    role?: "owner" | "client" | "admin";
-  }) {
-    setStatus("loading");
-    const { token, user } = await registerService(args);
-    setToken(token);
-    setTokenState(token);
-    setUser(user);
-    setStatus("authenticated");
-  }
+  const register = useCallback(
+    async (args: {
+      name: string;
+      email: string;
+      password: string;
+      role?: "owner" | "client" | "admin";
+    }) => {
+      setStatus("loading");
+      const { token, user } = await registerService(args);
+      setToken(token);
+      setTokenState(token);
+      setUser(user);
+      setStatus("authenticated");
+    },
+    [setTokenState, setUser],
+  );
 
-  function logout() {
+  const getUserProfile = useCallback(async () => {
+    if (!user) return;
+    setStatus("loading");
+    try {
+      const profile = await getUserProfileService(user);
+      setUser(profile);
+      setStatus("authenticated");
+    } catch (error) {
+      console.error("Failed to fetch user profile:", error);
+      setStatus("guest");
+    }
+  }, [user]);
+
+  const logout = useCallback(() => {
     clearToken();
     setTokenState(null);
     setUser(null);
     setStatus("guest");
-  }
+  }, [setTokenState, setUser]);
 
   const role = user?.role ?? null;
 
   const value = useMemo(
-    () => ({ user, token, status, login, register, logout, role }),
-    [user, token, status, role],
+    () => ({
+      user,
+      token,
+      status,
+      login,
+      register,
+      logout,
+      getUserProfile,
+      role,
+    }),
+    [user, token, status, role, login, register, logout, getUserProfile],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

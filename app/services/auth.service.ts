@@ -1,5 +1,6 @@
 import { api } from "../api/axioxConfig";
 import type {
+  AuthUser,
   AuthResponse,
   LoginPayload,
   RegisterPayload,
@@ -30,5 +31,10 @@ export async function registerService(
   payload: RegisterPayload,
 ): Promise<AuthResponse> {
   const { data } = await api.post<AuthResponse>("/auth/register", payload);
+  return data;
+}
+
+export async function getUserProfileService(user: { id: number }): Promise<AuthUser> {
+  const { data } = await api.get<AuthUser>(`/api/users/${user.id}`);
   return data;
 }
