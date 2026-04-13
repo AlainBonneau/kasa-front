@@ -2,11 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useAuthContext } from "@/app/context/AuthContext";
 import { Heart, MessageSquare, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import "./Navbar.scss";
 
 export default function Navbar() {
+  const { user } = useAuthContext();
   const [isOpen, setIsOpen] = useState(false);
 
   // useEffect qui bloque le scroll du body lorsque le menu mobile est ouvert
@@ -37,20 +39,32 @@ export default function Navbar() {
           />
         </div>
 
-        <div className="navbar-right">
-          <Link href="/add-property" className="add-property">
-            +Ajouter un logement
+        {user ? (
+          <Link href="/profil" className="profile-link">
+            Profil
           </Link>
+        ) : (
+          <Link href="/login" className="connect-link">
+            Se connecter
+          </Link>
+        )}
 
-          <div className="navbar-icons">
-            <Link href="/favorites" aria-label="Favoris">
-              <Heart size={18} />
+        {user && (
+          <div className="navbar-right">
+            <Link href="/add-property" className="add-property">
+              +Ajouter un logement
             </Link>
-            <Link href="/messagerie" aria-label="Messagerie">
-              <MessageSquare size={18} />
-            </Link>
+
+            <div className="navbar-icons">
+              <Link href="/favorites" aria-label="Favoris">
+                <Heart size={18} />
+              </Link>
+              <Link href="/messagerie" aria-label="Messagerie">
+                <MessageSquare size={18} />
+              </Link>
+            </div>
           </div>
-        </div>
+        )}
       </nav>
 
       {/* MOBILE TOP BAR */}
@@ -112,17 +126,36 @@ export default function Navbar() {
             <Link href="/about" onClick={closeMenu}>
               À propos
             </Link>
-            <Link href="/messagerie" onClick={closeMenu}>
-              Messagerie
-            </Link>
-            <Link href="/favorites" onClick={closeMenu}>
-              Favoris
-            </Link>
+            {user && (
+              <Link href="/messagerie" onClick={closeMenu}>
+                Messagerie
+              </Link>
+            )}
+            {user && (
+              <Link href="/favorites" onClick={closeMenu}>
+                Favoris
+              </Link>
+            )}
+            {user ? (
+              <Link href="/profil" onClick={closeMenu}>
+                Profil
+              </Link>
+            ) : (
+              <Link href="/login" onClick={closeMenu}>
+                Se connecter
+              </Link>
+            )}
           </div>
 
-          <Link href="/add-property" className="mobile-cta" onClick={closeMenu}>
-            Ajouter un logement
-          </Link>
+          {user && (
+            <Link
+              href="/add-property"
+              className="mobile-cta"
+              onClick={closeMenu}
+            >
+              Ajouter un logement
+            </Link>
+          )}
         </div>
       </nav>
     </header>

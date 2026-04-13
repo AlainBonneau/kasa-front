@@ -62,6 +62,25 @@
 }
 
 /* Droit */
+.profile-link,
+.connect-link {
+  text-decoration: none;
+  color: var(--black);
+  transition: color 0.2s ease;
+  font-size: 0.875rem;
+}
+
+.profile-link:hover,
+.connect-link:hover {
+  color: var(--main-red);
+  font-weight: 700;
+}
+
+.navbar-left a:hover {
+  color: var(--main-red);
+  font-weight: 700;
+}
+
 .navbar-right {
   display: flex;
   align-items: center;
